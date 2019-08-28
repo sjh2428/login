@@ -19,20 +19,20 @@
 14. [ ] modal
 
 #### CSS
-1. [ ] Label
+1. [x] Label
     - width: 100%
     - font-size: 12px
     - font-weight: bold
-2. [ ] Input
+2. [x] Input
     - font-size: 18px
     - width: 100%
     - focus시에 테두리 색 변경: #56C151
-3. [ ] Message
+3. [x] Message
     - width: 100%
     - font-size: 10px
     - error는 빨간색
     - pass는 초록색
-4. [ ] 회원가입 Title
+4. [x] 회원가입 Title
     - color: #03A600
 5. [ ] 관심사 태그
     - style: none
@@ -40,9 +40,9 @@
     - width, height 조정
     - 삭제버튼
     - overflow: scroll
-6. [ ] body
+6. [x] body
     - background-color: #F5F6F7
-7. [ ] Reset, Sign-Up
+7. [x] Reset, Sign-Up
     - color: white
     - background-color: #0BA600
 

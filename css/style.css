@@ -16,6 +16,14 @@ input {
     box-sizing:border-box;
 }
 
+input:focus {
+    outline-color: #56C151;
+}
+
+select:focus {
+    outline-color: #56C151;
+}
+
 select {
     height: 100%;
     box-sizing:border-box;
