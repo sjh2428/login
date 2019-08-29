@@ -21,7 +21,6 @@
 #### CSS
 1. [x] Label
     - width: 100%
-    - font-size: 12px
     - font-weight: bold
 2. [x] Input
     - font-size: 18px
@@ -29,9 +28,8 @@
     - focus시에 테두리 색 변경: #56C151
 3. [x] Message
     - width: 100%
-    - font-size: 10px
-    - error는 빨간색
-    - pass는 초록색
+    - error는 #FE2924
+    - pass는 #1BAA17
 4. [x] 회원가입 Title
     - color: #03A600
 5. [ ] 관심사 태그
