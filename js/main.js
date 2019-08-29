@@ -18,33 +18,70 @@ const checkLength = (str, min, max) => {
     return min <= str.length && str.length <= max;
 }
 
+// from_msg가 있다면 to_msg로 바꿔줌
 const changeMsgClass = (msgClass, from, to) => {
     if (msgClass.classList.contains(from)) {
         msgClass.classList.replace(from, to);
     }
 }
 
-const checkId = (str) => {
-    const regex = /^[a-z0-9-_]+$/;
-    return str.match(regex);
+const checkId = (str, msgClass) => {
+    let regex;
+    if (!checkLength(str, 5, 20)) {
+        changeMsgClass(msgClass, "pass_msg", "err_msg");
+        return "5자 이상 20자 이하로 입력해주세요.";
+    }
+    regex = /^[a-z0-9-_]+$/;
+    if (!str.match(regex)) {
+        changeMsgClass(msgClass, "pass_msg", "err_msg");
+        return "영문 소문자, 숫자와 특수기호(_)(-) 만 사용 가능합니다.";
+    }
+    changeMsgClass(msgClass, "err_msg", "pass_msg");
+    return "사용 가능한 아이디입니다.";
 }
 
 const idHandler = () => {
     const idValue = classObjs["id"].value;
     const idMsg = classObjs["msg_id"];
-    if (checkLength(idValue, 5, 20) && checkId(idValue)) {
-        changeMsgClass(idMsg, "err_msg", "pass_msg");
-        idMsg.innerText = "사용 가능한 아이디입니다.";
-    } else {
-        changeMsgClass(idMsg, "pass_msg", "err_msg");
-        idMsg.innerText = "5~20자의 영문 소문자, 숫자와 특수기호(_)(-) 만 사용 가능합니다.";
+    idMsg.innerText = checkId(idValue, idMsg);
+}
+
+const checkPass = (str, msgClass) => {
+    let regex;
+    if (!checkLength(str, 8, 16)) {
+        changeMsgClass(msgClass, "pass_msg", "err_msg");
+        return "8자 이상 16자 이하로 입력해주세요.";
     }
+    regex = /^.*[A-Z].*$/;
+    if (!str.match(regex)) {
+        changeMsgClass(msgClass, "pass_msg", "err_msg");
+        return "영문 대문자를 최소 1자 이상 포함해주세요.";
+    }
+    regex = /^.*[0-9].*$/;
+    if (!str.match(regex)) {
+        changeMsgClass(msgClass, "pass_msg", "err_msg");
+        return "숫자를 최소 1자 이상 포함해주세요.";
+    }
+    regex = /^.*[`~!@#$%^&*()\-_+=[{\]}\\|;:'",<.>/?].*$/;
+    if (!str.match(regex)) {
+        changeMsgClass(msgClass, "pass_msg", "err_msg");
+        return "특수문자를 최소 1자 이상 포함해주세요.";
+    }
+    changeMsgClass(msgClass, "err_msg", "pass_msg");
+    return "안전한 비밀번호입니다.";
+}
+
+const passHandler = () => {
+    const passValue = classObjs["pass"].value;
+    const passMsg = classObjs["msg_pass"];
+    passMsg.innerText = checkPass(passValue, passMsg);
 }
 
 const init = () => {
     getClasses();
-    console.log(classObjs);
+    // console.log(classObjs);
     classObjs["id"].addEventListener("keyup", idHandler);
+    classObjs["pass"].addEventListener("keyup", passHandler);
 }
 
 init();
