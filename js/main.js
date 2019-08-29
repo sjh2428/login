@@ -14,6 +14,14 @@ const getClasses = () => {
     }
 }
 
+const focusHandler = (e) => {
+    e.target.parentNode.style = "border-color: #56C151;";
+}
+
+const focusOutHandler = (e) => {
+    e.target.parentNode.style = "border-color: #DADADA;";
+}
+
 const injectFocusEventToTagArray = (tagArray) => {
     tagArray.forEach(tag => {
         tag.addEventListener("focus", focusHandler);
@@ -149,17 +157,23 @@ const birthHandler = () => {
     birthMsg.innerHTML = checkBirth(yearValue, monthValue, dayValue, birthMsg);
 }
 
-const focusHandler = (e) => {
-    e.target.parentNode.style = "border-color: #56C151;";
+const checkGender = (genderValue, msgClass) => {
+    if (genderValue === "성별") {
+        changeMsgClass(msgClass, "pass_msg", "err_msg");
+        return "성별을 선택해주세요";
+    }
+    changeMsgClass(msgClass, "err_msg", "pass_msg");
+    return "&nbsp;";
 }
 
-const focusOutHandler = (e) => {
-    e.target.parentNode.style = "border-color: #DADADA;";
+const genderHandler = () => {
+    const genderValue = classObjs["gender"].value;
+    const genderMsg = classObjs["msg_gender"];
+    genderMsg.innerHTML = checkGender(genderValue, genderMsg);
 }
 
 const init = () => {
     getClasses();
-    // console.log(classObjs);
     injectFocusEvent();
     classObjs["id"].addEventListener("keyup", idHandler);
     classObjs["pass"].addEventListener("keyup", passHandler);
@@ -168,6 +182,8 @@ const init = () => {
     classObjs["birthday_month"].addEventListener("change", birthHandler);
     classObjs["birthday_month"].addEventListener("keyup", birthHandler);
     classObjs["birthday_day"].addEventListener("keyup", birthHandler);
+    classObjs["gender"].addEventListener("keyup", genderHandler);
+    classObjs["gender"].addEventListener("change", genderHandler);
 }
 
 init();
