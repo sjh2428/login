@@ -77,11 +77,28 @@ const passHandler = () => {
     passMsg.innerText = checkPass(passValue, passMsg);
 }
 
+const checkPassCheck = (passValue, passCheckValue, msgClass) => {
+    if (passValue !== passCheckValue) {
+        changeMsgClass(msgClass, "pass_msg", "err_msg");
+        return "비밀번호가 일치하지 않습니다.";
+    }
+    changeMsgClass(msgClass, "err_msg", "pass_msg");
+    return "비밀번호가 일치합니다.";
+}
+
+const passCheckHandler = () => {
+    const passValue = classObjs["pass"].value;
+    const passCheckValue = classObjs["pass_check"].value;
+    const passCheckMsg = classObjs["msg_pass_check"];
+    passCheckMsg.innerText = checkPassCheck(passValue, passCheckValue, passCheckMsg);
+}
+
 const init = () => {
     getClasses();
     // console.log(classObjs);
     classObjs["id"].addEventListener("keyup", idHandler);
     classObjs["pass"].addEventListener("keyup", passHandler);
+    classObjs["pass_check"].addEventListener("keyup", passCheckHandler);
 }
 
 init();
