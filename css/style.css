@@ -8,36 +8,21 @@ label {
     font-weight: 600;
 }
 
-input {
+input, select {
     width: 100%;
     height: 35px;
-    padding: 10px;
-    font-size: 15px;
-    box-sizing:border-box;
-}
-
-input:focus {
-    outline-color: #56C151;
-}
-
-select:focus {
-    outline-color: #56C151;
-}
-
-select {
-    width: 100%;
-    height: 35px;
+    font-size: 18px;
     box-sizing:border-box;
     background-color: white;
-    border-color: #BFBFBF;
-    font-size: 15px;
+    border-color: white;
+    border: 0px;
 }
 
 .wrap {
     width: 450px;
 }
 
-.input_birthday {
+.birth_grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-column-gap: 10px;
@@ -85,13 +70,14 @@ select {
     font-size: 18px;
 }
 
-.title_wrap, .wrap_id,
-.wrap_pass, .wrap_pass_check,
-.wrap_name, .wrap_birthday,
-.wrap_gender, .wrap_email,
-.wrap_tel, .wrap_interest,
-.wrap_terms {
+.wrap_label_input_msg:not(.wrap_title) {
     margin-top: 10px;
+}
+
+.input_area {
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #DADADA;
 }
 
 .err_msg {

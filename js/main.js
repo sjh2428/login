@@ -2,7 +2,7 @@ const classObjs = {};
 
 const getClasses = () => {
     const idArray = ["id", "msg_id", "pass", "msg_pass", "pass_check", "msg_pass_check", 
-        "name", "msg_name", "birthday_year", "msg_birthday", "birthday_month", "birthday_day", 
+        "name", "msg_name", "birthday_year", "birthday_month", "birthday_day", "msg_birthday",
         "gender", "msg_gender", "email", "msg_email", "tel", "msg_tel", "interest", "msg_interest", 
         "terms_check", "terms_string", "reset_btn", "sign_in_btn"
     ];
@@ -14,8 +14,27 @@ const getClasses = () => {
     }
 }
 
+const injectFocusEventToTagArray = (tagArray) => {
+    tagArray.forEach(tag => {
+        tag.addEventListener("focus", focusHandler);
+        tag.addEventListener("focusout", focusOutHandler);
+    });
+}
+
+const injectFocusEvent = () => {
+    // 약관의 체크박스를 제외한 전체 input tags
+    const inputTags = document.querySelectorAll("input:not(.terms_check)");
+    const selectTags = document.querySelectorAll("select");
+    injectFocusEventToTagArray(inputTags);
+    injectFocusEventToTagArray(selectTags);
+}
+
 const checkLength = (str, min, max) => {
     return min <= str.length && str.length <= max;
+}
+
+const checkBound = (val, lower, upper) => {
+    return lower <= val && val <= upper;
 }
 
 // from_msg가 있다면 to_msg로 바꿔줌
@@ -43,7 +62,7 @@ const checkId = (str, msgClass) => {
 const idHandler = () => {
     const idValue = classObjs["id"].value;
     const idMsg = classObjs["msg_id"];
-    idMsg.innerText = checkId(idValue, idMsg);
+    idMsg.innerHTML = checkId(idValue, idMsg);
 }
 
 const checkPass = (str, msgClass) => {
@@ -74,7 +93,7 @@ const checkPass = (str, msgClass) => {
 const passHandler = () => {
     const passValue = classObjs["pass"].value;
     const passMsg = classObjs["msg_pass"];
-    passMsg.innerText = checkPass(passValue, passMsg);
+    passMsg.innerHTML = checkPass(passValue, passMsg);
 }
 
 const checkPassCheck = (passValue, passCheckValue, msgClass) => {
@@ -90,15 +109,65 @@ const passCheckHandler = () => {
     const passValue = classObjs["pass"].value;
     const passCheckValue = classObjs["pass_check"].value;
     const passCheckMsg = classObjs["msg_pass_check"];
-    passCheckMsg.innerText = checkPassCheck(passValue, passCheckValue, passCheckMsg);
+    passCheckMsg.innerHTML = checkPassCheck(passValue, passCheckValue, passCheckMsg);
+}
+
+const checkBirth = (yearValue, monthValue, dayValue, msgClass) => {
+    // year handle
+    const nowYear = new Date().getFullYear();
+    const lowerBound = nowYear - 14;
+    const upperBound = lowerBound + 99;
+    if (isNaN(Number(yearValue)) || yearValue.length !== 4) {
+        changeMsgClass(msgClass, "pass_msg", "err_msg");
+        return "태어난 년도 4자리를 정확하게 입력하세요.";
+    }
+    yearValue = Number(yearValue);
+    if (!checkBound(yearValue, lowerBound, upperBound)) {
+        changeMsgClass(msgClass, "pass_msg", "err_msg");
+        return "만 14세 이상 만 99세 이하만 가입 가능합니다."
+    }
+    // month handle
+    if (isNaN(Number(monthValue))) {
+        changeMsgClass(msgClass, "pass_msg", "err_msg");
+        return "태어난 월을 선택해주세요";
+    }
+    // day handle
+    dayValue = Number(dayValue);
+    if (isNaN(dayValue) || !checkBound(dayValue, 1, 31)) {
+        changeMsgClass(msgClass, "pass_msg", "err_msg");
+        return "태어난 날짜를 다시 확인해주세요.";
+    }
+    changeMsgClass(msgClass, "err_msg", "pass_msg");
+    return "&nbsp;";
+}
+
+const birthHandler = () => {
+    const yearValue = classObjs["birthday_year"].value;
+    const monthValue = classObjs["birthday_month"].value;
+    const dayValue = classObjs["birthday_day"].value;
+    const birthMsg = classObjs["msg_birthday"];
+    birthMsg.innerHTML = checkBirth(yearValue, monthValue, dayValue, birthMsg);
+}
+
+const focusHandler = (e) => {
+    e.target.parentNode.style = "border-color: #56C151;";
+}
+
+const focusOutHandler = (e) => {
+    e.target.parentNode.style = "border-color: #DADADA;";
 }
 
 const init = () => {
     getClasses();
     // console.log(classObjs);
+    injectFocusEvent();
     classObjs["id"].addEventListener("keyup", idHandler);
     classObjs["pass"].addEventListener("keyup", passHandler);
     classObjs["pass_check"].addEventListener("keyup", passCheckHandler);
+    classObjs["birthday_year"].addEventListener("keyup", birthHandler);
+    classObjs["birthday_month"].addEventListener("change", birthHandler);
+    classObjs["birthday_month"].addEventListener("keyup", birthHandler);
+    classObjs["birthday_day"].addEventListener("keyup", birthHandler);
 }
 
 init();
