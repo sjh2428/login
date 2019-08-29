@@ -80,6 +80,10 @@ input, select {
     border: 1px solid #DADADA;
 }
 
+.msg {
+    font-size: 13px;
+}
+
 .err_msg {
     color: #FE2924;
 }

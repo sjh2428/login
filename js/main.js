@@ -52,14 +52,14 @@ const changeMsgClass = (msgClass, from, to) => {
     }
 }
 
-const checkId = (str, msgClass) => {
+const checkId = (idValue, msgClass) => {
     let regex;
-    if (!checkLength(str, 5, 20)) {
+    if (!checkLength(idValue, 5, 20)) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
         return "5자 이상 20자 이하로 입력해주세요.";
     }
     regex = /^[a-z0-9-_]+$/;
-    if (!str.match(regex)) {
+    if (!idValue.match(regex)) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
         return "영문 소문자, 숫자와 특수기호(_)(-) 만 사용 가능합니다.";
     }
@@ -73,24 +73,24 @@ const idHandler = () => {
     idMsg.innerHTML = checkId(idValue, idMsg);
 }
 
-const checkPass = (str, msgClass) => {
+const checkPass = (passValue, msgClass) => {
     let regex;
-    if (!checkLength(str, 8, 16)) {
+    if (!checkLength(passValue, 8, 16)) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
         return "8자 이상 16자 이하로 입력해주세요.";
     }
     regex = /^.*[A-Z].*$/;
-    if (!str.match(regex)) {
+    if (!passValue.match(regex)) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
         return "영문 대문자를 최소 1자 이상 포함해주세요.";
     }
     regex = /^.*[0-9].*$/;
-    if (!str.match(regex)) {
+    if (!passValue.match(regex)) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
         return "숫자를 최소 1자 이상 포함해주세요.";
     }
     regex = /^.*[`~!@#$%^&*()\-_+=[{\]}\\|;:'",<.>/?].*$/;
-    if (!str.match(regex)) {
+    if (!passValue.match(regex)) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
         return "특수문자를 최소 1자 이상 포함해주세요.";
     }
@@ -172,6 +172,38 @@ const genderHandler = () => {
     genderMsg.innerHTML = checkGender(genderValue, genderMsg);
 }
 
+const checkEmail = (emailValue, msgClass) => {
+    const regex = /^[A-Za-z0-9]([-_\.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
+    if (!emailValue.match(regex)) {
+        changeMsgClass(msgClass, "pass_msg", "err_msg");
+        return "이메일 주소를 다시 확인해주세요.";
+    }
+    changeMsgClass(msgClass, "err_msg", "pass_msg");
+    return "&nbsp;";
+}
+
+const emailHandler = () => {
+    const emailValue = classObjs["email"].value;
+    const emailMsg = classObjs["msg_email"];
+    emailMsg.innerHTML = checkEmail(emailValue, emailMsg);
+}
+
+const checkTel = (telValue, msgClass) => {
+    const regex = /^010[0-9]{7,8}$/;
+    if (!telValue.match(regex)) {
+        changeMsgClass(msgClass, "pass_msg", "err_msg");
+        return "형식에 맞지 않는 번호입니다.";
+    }
+    changeMsgClass(msgClass, "err_msg", "pass_msg");
+    return "&nbsp;";
+}
+
+const telHandler = () => {
+    const telValue = classObjs["tel"].value;
+    const telMsg = classObjs["msg_tel"];
+    telMsg.innerHTML = checkTel(telValue, telMsg);
+}
+
 const init = () => {
     getClasses();
     injectFocusEvent();
@@ -184,6 +216,8 @@ const init = () => {
     classObjs["birthday_day"].addEventListener("keyup", birthHandler);
     classObjs["gender"].addEventListener("keyup", genderHandler);
     classObjs["gender"].addEventListener("change", genderHandler);
+    classObjs["email"].addEventListener("keyup", emailHandler);
+    classObjs["tel"].addEventListener("keyup", telHandler);
 }
 
 init();
