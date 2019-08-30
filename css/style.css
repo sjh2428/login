@@ -10,6 +10,7 @@
     --interest-background-color: #EFEFEF;
     --interest-border-color: #B7B7B7;
     --interest-font-color: #666666;
+    --interest-height: 33px;
 }
 
 body {
@@ -50,7 +51,7 @@ select {
 .li_interest {
     float: left;
     padding: 0px 10px;
-    height: var(--input-height);
+    height: var(--interest-height);
     border: 1px solid var(--interest-border-color);
     border-radius: 3px;
     display: flex;
@@ -61,7 +62,7 @@ select {
     color: var(--interest-font-color);
 }
 
-.li_del_btn {
+.interest_del_btn {
     margin-left: 5px;
     width: 30px;
     height: 30px;

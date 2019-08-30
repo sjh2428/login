@@ -4,7 +4,7 @@ const getClasses = () => {
     const idArray = ["id", "msg_id", "pass", "msg_pass", "pass_check", "msg_pass_check", 
         "name", "msg_name", "birthday_year", "birthday_month", "birthday_day", "msg_birthday",
         "gender", "msg_gender", "email", "msg_email", "tel", "msg_tel", "interest", "ul_interests", 
-        "msg_interest", "li_interest", "li_del_btn", "terms_check", "terms_string", "reset_btn", "sign_in_btn"
+        "msg_interest", "li_interest", "interest_del_btn", "terms_check", "terms_string", "reset_btn", "sign_in_btn"
     ];
     for (let i = 0; i < idArray.length; i++) {
         classObjs[idArray[i]] = document.querySelector(`.${idArray[i]}`);
@@ -256,8 +256,9 @@ const appendInterest = (e) => {
         const delBtn = document.createElement("button");
         const delText = document.createTextNode("X");
         interestLi.classList.add("li_interest");
-        delBtn.classList.add("li_del_btn");
+        delBtn.classList.add("interest_del_btn");
         delBtn.appendChild(delText);
+        delBtn.addEventListener("click", interestDelHandler);
         interestLi.appendChild(interestText);
         interestLi.appendChild(delBtn);
         interestUl.appendChild(interestLi);
@@ -276,6 +277,10 @@ const interestHandler = (e) => {
     if (lastInputIsComma(e)) {
         appendInterest(e);
     }
+}
+
+const interestDelHandler = (e) => {
+    e.target.parentNode.remove();
 }
 
 const init = () => {
