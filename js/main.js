@@ -249,17 +249,19 @@ const lastInputIsComma = (e) => {
 
 const appendInterest = (e) => {
     const inputValue = e.target.value.trim().slice(0, -1);
-    const interestUl = classObjs["ul_interests"];
-    const interestLi = document.createElement("li");
-    const interestText = document.createTextNode(inputValue);
-    const delBtn = document.createElement("button");
-    const delText = document.createTextNode("X");
-    interestLi.classList.add("li_interest");
-    delBtn.classList.add("li_del_btn");
-    delBtn.appendChild(delText);
-    interestLi.appendChild(interestText);
-    interestLi.appendChild(delBtn);
-    interestUl.appendChild(interestLi);
+    if (inputValue.length > 0 && !inputValue.includes(",")) {
+        const interestUl = classObjs["ul_interests"];
+        const interestLi = document.createElement("li");
+        const interestText = document.createTextNode(inputValue);
+        const delBtn = document.createElement("button");
+        const delText = document.createTextNode("X");
+        interestLi.classList.add("li_interest");
+        delBtn.classList.add("li_del_btn");
+        delBtn.appendChild(delText);
+        interestLi.appendChild(interestText);
+        interestLi.appendChild(delBtn);
+        interestUl.appendChild(interestLi);
+    }
     e.target.value = "";
 }
 
