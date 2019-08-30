@@ -247,23 +247,38 @@ const lastInputIsComma = (e) => {
     return e.target.value[e.target.value.length - 1] === ",";
 }
 
+const getInterestNode = (str) => {
+    const interestLi = document.createElement("li");
+    const interestText = document.createTextNode(str);
+    const delBtn = document.createElement("button");
+    const delText = document.createTextNode("X");
+    interestLi.classList.add("li_interest");
+    delBtn.classList.add("interest_del_btn");
+    delBtn.appendChild(delText);
+    delBtn.addEventListener("click", interestDelHandler);
+    interestLi.appendChild(interestText);
+    interestLi.appendChild(delBtn);
+    return interestLi;
+}
+
 const appendInterest = (e) => {
     const inputValue = e.target.value.trim().slice(0, -1);
     if (inputValue.length > 0 && !inputValue.includes(",")) {
         const interestUl = classObjs["ul_interests"];
-        const interestLi = document.createElement("li");
-        const interestText = document.createTextNode(inputValue);
-        const delBtn = document.createElement("button");
-        const delText = document.createTextNode("X");
-        interestLi.classList.add("li_interest");
-        delBtn.classList.add("interest_del_btn");
-        delBtn.appendChild(delText);
-        delBtn.addEventListener("click", interestDelHandler);
-        interestLi.appendChild(interestText);
-        interestLi.appendChild(delBtn);
-        interestUl.appendChild(interestLi);
+        interestUl.appendChild(getInterestNode(inputValue));
     }
     e.target.value = "";
+}
+
+const checkInterest = (interestsCnt, msgClass) => {
+    if (interestsCnt < 3) {
+        changeMsgClass(msgClass, "pass_msg", "err_msg");
+        msgClass.innerHTML = "3개 이상의 관심사를 입력하세요.";
+        return false;
+    }
+    changeMsgClass(msgClass, "err_msg", "pass_msg");
+    msgClass.innerHTML = "&nbsp;";
+    return true;
 }
 
 const interestHandler = (e) => {
@@ -277,6 +292,9 @@ const interestHandler = (e) => {
     if (lastInputIsComma(e)) {
         appendInterest(e);
     }
+    const interestsCnt = classObjs["ul_interests"].childNodes.length;
+    const interestMsg = classObjs["msg_interest"];
+    checkInterest(interestsCnt, interestMsg);
 }
 
 const interestDelHandler = (e) => {
