@@ -70,6 +70,7 @@ select {
     outline: none;
     text-align: center;
     font-weight: bold;
+    cursor: pointer;
     font-size: var(--input-font-size);
     background-color: var(--interest-background-color);
     color: var(--interest-font-color);
