@@ -4,7 +4,7 @@ const getClasses = () => {
     const idArray = ["id", "msg_id", "pass", "msg_pass", "pass_check", "msg_pass_check", 
         "name", "msg_name", "birthday_year", "birthday_month", "birthday_day", "msg_birthday",
         "gender", "msg_gender", "email", "msg_email", "tel", "msg_tel", "interest", "ul_interests", 
-        "msg_interest", "li_interest", "interest_del_btn", "terms_check", "terms_string", "reset_btn", "sign_in_btn"
+        "msg_interest", "interest_del_btn", "terms_check", "terms_string", "reset_btn", "sign_in_btn"
     ];
     for (let i = 0; i < idArray.length; i++) {
         classObjs[idArray[i]] = document.querySelector(`.${idArray[i]}`);
@@ -130,6 +130,16 @@ const passCheckHandler = () => {
     checkPassCheck(passValue, passCheckValue, passCheckMsg);
 }
 
+const getLastDay = (yearValue, monthValue) => {
+    let dateObjForLastDay;
+    if (monthValue === 12) {
+        dateObjForLastDay = new Date(new Date(`${yearValue + 1}-01-01 00:00:00`).getTime() - 1);
+    } else {
+        dateObjForLastDay = new Date(new Date(`${yearValue}-${monthValue + 1}-01 00:00:00`).getTime() - 1);
+    }
+    return dateObjForLastDay.getDate();
+}
+
 const checkBirth = (yearValue, monthValue, dayValue, msgClass) => {
     // year handle
     const nowYear = new Date().getFullYear();
@@ -141,22 +151,24 @@ const checkBirth = (yearValue, monthValue, dayValue, msgClass) => {
         return false;
     }
     yearValue = Number(yearValue);
-    if (!checkBound(yearValue, lowerBound, upperBound)) {
+    if (checkBound(yearValue, lowerBound, upperBound)) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
         msgClass.innerHTML = "만 14세 이상 만 99세 이하만 가입 가능합니다.";
         return false;
     }
     // month handle
-    if (isNaN(Number(monthValue))) {
+    monthValue = Number(monthValue);
+    if (isNaN(monthValue)) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
         msgClass.innerHTML = "태어난 월을 선택해주세요";
         return false;
     }
     // day handle
     dayValue = Number(dayValue);
-    if (isNaN(dayValue) || !checkBound(dayValue, 1, 31)) {
+    lastDay = getLastDay(yearValue, monthValue);
+    if (isNaN(dayValue) || !checkBound(dayValue, 1, lastDay)) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
-        msgClass.innerHTML = "태어난 날짜를 다시 확인해주세요.";
+        msgClass.innerHTML = `태어난 날짜를 다시 확인해주세요. ${yearValue}년 ${monthValue}월은 1일부터 ${lastDay}까지 존재합니다.`;
         return false;
     }
     changeMsgClass(msgClass, "err_msg", "pass_msg");
@@ -316,6 +328,7 @@ const init = () => {
     classObjs["email"].addEventListener("keyup", emailHandler);
     classObjs["tel"].addEventListener("keyup", telHandler);
     classObjs["interest"].addEventListener("keyup", interestHandler); // keydown은 마지막 글자가 같이 지워짐
+
 }
 
 init();
