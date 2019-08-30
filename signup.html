@@ -18,36 +18,36 @@
             <div class="wrap_id wrap_label_input_msg">
                 <label for="id">아이디</label>
                 <div class="input_area input_id">
-                    <input type="text" name="id" class="id">
+                    <input type="text" name="id" class="id" maxlength="20">
                 </div>
-                <div class="msg msg_id err_msg">&nbsp;</div>
+                <div class="msg msg_id">&nbsp;</div>
             </div>
             <div class="wrap_pass wrap_label_input_msg">
                 <label for="pass">비밀번호</label>
                 <div class="input_area input_pass">
-                    <input type="password" name="pass" class="pass">
+                    <input type="password" name="pass" class="pass" maxlength="16">
                 </div>
-                <div class="msg msg_pass err_msg">&nbsp;</div>
+                <div class="msg msg_pass">&nbsp;</div>
             </div>
             <div class="wrap_pass_check wrap_label_input_msg">
                 <label for="pass_check">비밀번호 재확인</label>
                 <div class="input_area input_pass_check">
-                    <input type="password" name="pass_check" class="pass_check">
+                    <input type="password" name="pass_check" class="pass_check" maxlength="16">
                 </div>
-                <div class="msg msg_pass_check err_msg">&nbsp;</div>
+                <div class="msg msg_pass_check">&nbsp;</div>
             </div>
             <div class="wrap_name wrap_label_input_msg">
                 <label for="name">이름</label>
                 <div class="input_area input_name">
                     <input type="text" name="name" class="name">
                 </div>
-                <div class="msg msg_name err_msg">&nbsp;</div>
+                <div class="msg msg_name">&nbsp;</div>
             </div>
             <div class="wrap_birthday wrap_label_input_msg">
                 <label for="birthday">생년월일</label>
-                <div class="birth_grid">
+                <div class="birth_flex">
                     <div class="input_area input_birthday_year">
-                        <input type="number" name="birthday_year" class="birthday_year" placeholder="년(4자)">
+                        <input type="text" name="birthday_year" class="birthday_year" placeholder="년(4자)" maxlength="4">
                     </div>
                     <div class="input_area input_birthday_month">
                         <select name="birthday_month" class="birthday_month">
@@ -67,10 +67,10 @@
                         </select>
                     </div>
                     <div class="input_area input_birthday_day">
-                        <input type="number" name="birthday_day" class="birthday_day" placeholder="일">
+                        <input type="text" name="birthday_day" class="birthday_day" placeholder="일" maxlength="2">
                     </div>
                 </div>
-                <div class="msg msg_birthday err_msg">&nbsp;</div>
+                <div class="msg msg_birthday">&nbsp;</div>
             </div>
             <div class="wrap_gender wrap_label_input_msg">
                 <label for="gender">성별</label>
@@ -81,32 +81,40 @@
                         <option value="woman">여자</option>
                     </select>
                 </div>
-                <div class="msg msg_gender err_msg">&nbsp;</div>
+                <div class="msg msg_gender">&nbsp;</div>
             </div>
             <div class="wrap_email wrap_label_input_msg">
                 <label for="email">이메일</label>
                 <div class="input_area input_email">
                     <input type="email" name="email" class="email">
                 </div>
-                <div class="msg msg_email err_msg">&nbsp;</div>
+                <div class="msg msg_email">&nbsp;</div>
             </div>
             <div class="wrap_tel wrap_label_input_msg">
                 <label for="tel">휴대전화</label>
                 <div class="input_area input_tel">
-                    <input type="tel" name="tel" class="tel" placeholder="- 없이 입력해주세요. 예) 0101231234">
+                    <input type="tel" name="tel" class="tel" placeholder="- 없이 입력해주세요. 예) 0101231234" maxlength="11">
                 </div>
-                <div class="msg msg_tel err_msg">&nbsp;</div>
+                <div class="msg msg_tel">&nbsp;</div>
             </div>
             <div class="wrap_interest wrap_label_input_msg">
                 <label for="interest">관심사</label>
                 <div class="input_area input_interest">
+                    <ul class="ul_interests">
+                        <li class="li_interest">asda<button class="li_del_btn"> X </button></li>
+                        <li class="li_interest">asda<button class="li_del_btn"> X </button></li>
+                        <li class="li_interest">asda<button class="li_del_btn"> X </button></li>
+                        <li class="li_interest">asda<button class="li_del_btn"> X </button></li>
+                        <li class="li_interest">asda<button class="li_del_btn"> X </button></li>
+                    </ul>
                     <input type="text" name="interest" class="interest">
+                    <!-- <textarea name="interest" class="interest" cols="10" rows="1"></textarea> -->
                 </div>
-                <div class="msg msg_interest err_msg">&nbsp;</div>
+                <div class="msg msg_interest">&nbsp;</div>
             </div>
             <div class="wrap_terms wrap_label_input_msg">
                 <span class="terms_string">약관에 동의합니다. </span>
-                <input type="checkbox" name="terms_check" class="terms_check">
+                <input type="checkbox" name="terms_check" class="terms_check" disabled>
             </div>
             <div class="wrap_btns wrap_label_input_msg">
                 <div class="reset_btn">초기화</div>

@@ -56,68 +56,78 @@ const checkId = (idValue, msgClass) => {
     let regex;
     if (!checkLength(idValue, 5, 20)) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
-        return "5자 이상 20자 이하로 입력해주세요.";
+        msgClass.innerHTML = "5자 이상 20자 이하로 입력해주세요.";
+        return false;
     }
     regex = /^[a-z0-9-_]+$/;
     if (!idValue.match(regex)) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
-        return "영문 소문자, 숫자와 특수기호(_)(-) 만 사용 가능합니다.";
+        msgClass.innerHTML = "영문 소문자, 숫자와 특수기호(_)(-) 만 사용 가능합니다.";
+        return false;
     }
     changeMsgClass(msgClass, "err_msg", "pass_msg");
-    return "사용 가능한 아이디입니다.";
+    msgClass.innerHTML = "사용 가능한 아이디입니다.";
+    return true;
 }
 
 const idHandler = () => {
     const idValue = classObjs["id"].value;
     const idMsg = classObjs["msg_id"];
-    idMsg.innerHTML = checkId(idValue, idMsg);
+    checkId(idValue, idMsg);
 }
 
 const checkPass = (passValue, msgClass) => {
     let regex;
     if (!checkLength(passValue, 8, 16)) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
-        return "8자 이상 16자 이하로 입력해주세요.";
+        msgClass.innerHTML = "8자 이상 16자 이하로 입력해주세요.";
+        return false;
     }
     regex = /^.*[A-Z].*$/;
     if (!passValue.match(regex)) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
-        return "영문 대문자를 최소 1자 이상 포함해주세요.";
+        msgClass.innerHTML = "영문 대문자를 최소 1자 이상 포함해주세요.";
+        return false;
     }
     regex = /^.*[0-9].*$/;
     if (!passValue.match(regex)) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
-        return "숫자를 최소 1자 이상 포함해주세요.";
+        msgClass.innerHTML = "숫자를 최소 1자 이상 포함해주세요.";
+        return false;
     }
     regex = /^.*[`~!@#$%^&*()\-_+=[{\]}\\|;:'",<.>/?].*$/;
     if (!passValue.match(regex)) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
-        return "특수문자를 최소 1자 이상 포함해주세요.";
+        msgClass.innerHTML = "특수문자를 최소 1자 이상 포함해주세요.";
+        return false;
     }
     changeMsgClass(msgClass, "err_msg", "pass_msg");
-    return "안전한 비밀번호입니다.";
+    msgClass.innerHTML = "안전한 비밀번호입니다.";
+    return true;
 }
 
 const passHandler = () => {
     const passValue = classObjs["pass"].value;
     const passMsg = classObjs["msg_pass"];
-    passMsg.innerHTML = checkPass(passValue, passMsg);
+    checkPass(passValue, passMsg);
 }
 
 const checkPassCheck = (passValue, passCheckValue, msgClass) => {
     if (passValue !== passCheckValue) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
-        return "비밀번호가 일치하지 않습니다.";
+        msgClass.innerHTML = "비밀번호가 일치하지 않습니다.";
+        return false;
     }
     changeMsgClass(msgClass, "err_msg", "pass_msg");
-    return "비밀번호가 일치합니다.";
+    msgClass.innerHTML = "비밀번호가 일치합니다.";
+    return true;
 }
 
 const passCheckHandler = () => {
     const passValue = classObjs["pass"].value;
     const passCheckValue = classObjs["pass_check"].value;
     const passCheckMsg = classObjs["msg_pass_check"];
-    passCheckMsg.innerHTML = checkPassCheck(passValue, passCheckValue, passCheckMsg);
+    checkPassCheck(passValue, passCheckValue, passCheckMsg);
 }
 
 const checkBirth = (yearValue, monthValue, dayValue, msgClass) => {
@@ -127,26 +137,31 @@ const checkBirth = (yearValue, monthValue, dayValue, msgClass) => {
     const upperBound = lowerBound + 99;
     if (isNaN(Number(yearValue)) || yearValue.length !== 4) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
-        return "태어난 년도 4자리를 정확하게 입력하세요.";
+        msgClass.innerHTML = "태어난 년도 4자리를 정확하게 입력하세요.";
+        return false;
     }
     yearValue = Number(yearValue);
     if (!checkBound(yearValue, lowerBound, upperBound)) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
-        return "만 14세 이상 만 99세 이하만 가입 가능합니다."
+        msgClass.innerHTML = "만 14세 이상 만 99세 이하만 가입 가능합니다.";
+        return false;
     }
     // month handle
     if (isNaN(Number(monthValue))) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
-        return "태어난 월을 선택해주세요";
+        msgClass.innerHTML = "태어난 월을 선택해주세요";
+        return false;
     }
     // day handle
     dayValue = Number(dayValue);
     if (isNaN(dayValue) || !checkBound(dayValue, 1, 31)) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
-        return "태어난 날짜를 다시 확인해주세요.";
+        msgClass.innerHTML = "태어난 날짜를 다시 확인해주세요.";
+        return false;
     }
     changeMsgClass(msgClass, "err_msg", "pass_msg");
-    return "&nbsp;";
+    msgClass.innerHTML = "&nbsp;";
+    return true;
 }
 
 const birthHandler = () => {
@@ -154,54 +169,76 @@ const birthHandler = () => {
     const monthValue = classObjs["birthday_month"].value;
     const dayValue = classObjs["birthday_day"].value;
     const birthMsg = classObjs["msg_birthday"];
-    birthMsg.innerHTML = checkBirth(yearValue, monthValue, dayValue, birthMsg);
+    checkBirth(yearValue, monthValue, dayValue, birthMsg);
 }
 
 const checkGender = (genderValue, msgClass) => {
     if (genderValue === "성별") {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
-        return "성별을 선택해주세요";
+        msgClass.innerHTML = "성별을 선택해주세요";
+        return false;
     }
     changeMsgClass(msgClass, "err_msg", "pass_msg");
-    return "&nbsp;";
+    msgClass.innerHTML = "&nbsp;";
+    return true;
 }
 
 const genderHandler = () => {
     const genderValue = classObjs["gender"].value;
     const genderMsg = classObjs["msg_gender"];
-    genderMsg.innerHTML = checkGender(genderValue, genderMsg);
+    checkGender(genderValue, genderMsg);
 }
 
 const checkEmail = (emailValue, msgClass) => {
     const regex = /^[A-Za-z0-9]([-_\.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
     if (!emailValue.match(regex)) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
-        return "이메일 주소를 다시 확인해주세요.";
+        msgClass.innerHTML = "이메일 주소를 다시 확인해주세요.";
+        return false;
     }
     changeMsgClass(msgClass, "err_msg", "pass_msg");
-    return "&nbsp;";
+    msgClass.innerHTML = "&nbsp;";
+    return true;
 }
 
 const emailHandler = () => {
     const emailValue = classObjs["email"].value;
     const emailMsg = classObjs["msg_email"];
-    emailMsg.innerHTML = checkEmail(emailValue, emailMsg);
+    checkEmail(emailValue, emailMsg);
 }
 
 const checkTel = (telValue, msgClass) => {
     const regex = /^010[0-9]{7,8}$/;
     if (!telValue.match(regex)) {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
-        return "형식에 맞지 않는 번호입니다.";
+        msgClass.innerHTML = "형식에 맞지 않는 번호입니다.";
+        return false;
     }
     changeMsgClass(msgClass, "err_msg", "pass_msg");
-    return "&nbsp;";
+    msgClass.innerHTML = "&nbsp;";
+    return true;
 }
 
 const telHandler = () => {
     const telValue = classObjs["tel"].value;
     const telMsg = classObjs["msg_tel"];
-    telMsg.innerHTML = checkTel(telValue, telMsg);
+    checkTel(telValue, telMsg);
+}
+
+const interestHandler = (e) => {
+    // e.keyCode
+    // 188: , - 꺽쇄 '<'도 또한 188이기 때문에
+    //      마지막 문자열을 체크하는 방식으로 해야할 듯 함
+    // 8: backspace
+    if (e.keyCode === 8 && e.target.value === "") {
+        const interestUl = e.target.previousElementSibling;
+        const lastInterest = interestUl.lastElementChild;
+        if (lastInterest) { // interest ul의 마지막 node가 존재한다면
+            const lastInterestText = lastInterest.childNodes[0].nodeValue;
+            e.target.value = lastInterestText;
+            lastInterest.remove();
+        }
+    }
 }
 
 const init = () => {
@@ -218,6 +255,7 @@ const init = () => {
     classObjs["gender"].addEventListener("change", genderHandler);
     classObjs["email"].addEventListener("keyup", emailHandler);
     classObjs["tel"].addEventListener("keyup", telHandler);
+    classObjs["interest"].addEventListener("keyup", interestHandler); // keydown은 마지막 글자가 같이 지워짐
 }
 
 init();

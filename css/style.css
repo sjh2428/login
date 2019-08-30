@@ -4,6 +4,12 @@
     --main-btn-color: #0BA600;
     --err-msg: #FE2924;
     --pass-msg: #1BAA17;
+    --input-area-border-color: #DADADA;
+    --input-font-size: 18px;
+    --input-height: 35px;
+    --interest-background-color: #EFEFEF;
+    --interest-border-color: #B7B7B7;
+    --interest-font-color: #666666;
 }
 
 body {
@@ -18,22 +24,76 @@ label {
 
 input, select {
     width: 100%;
-    height: 35px;
-    font-size: 18px;
+    height: var(--input-height);
+    font-size: var(--input-font-size);
     box-sizing:border-box;
     background-color: white;
     border-color: white;
     border: 0px;
 }
 
+select {
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+    appearance:none;
+    background: url('../img/arrow_down.svg') no-repeat 95% 50%;
+    background-size: 20px 20px;
+}
+
+.ul_interests {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    font-size: var(--input-font-size);
+}
+
+.li_interest {
+    float: left;
+    padding: 0px 10px;
+    height: var(--input-height);
+    border: 1px solid var(--interest-border-color);
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    background-color: var(--interest-background-color);
+    color: var(--interest-font-color);
+}
+
+.li_del_btn {
+    margin-left: 5px;
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--interest-border-color);
+    border-radius: 100px;
+    outline: none;
+    text-align: center;
+    font-weight: bold;
+    font-size: var(--input-font-size);
+    background-color: var(--interest-background-color);
+    color: var(--interest-font-color);
+}
+
+.input_interest {
+    overflow: auto;
+}
+
+.interest {
+    width: 100px;
+}
+
 .wrap {
     width: 450px;
 }
 
-.birth_grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 10px;
+.birth_flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input_birthday_year, .input_birthday_month, .input_birthday_day {
+    width: 27%;
 }
 
 .wrap_title {
@@ -53,6 +113,7 @@ input, select {
 .terms_string {
     text-decoration-line: underline;
     font-weight: 500;
+    cursor: pointer;
 }
 
 .terms_check {
@@ -60,14 +121,13 @@ input, select {
 }
 
 .wrap_btns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 10px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .reset_btn,
 .sign_in_btn {
-    width: 100%;
+    width: 48%;
     height: 70px;
     color: white;
     background-color: var(--main-btn-color);
@@ -85,7 +145,7 @@ input, select {
 .input_area {
     padding: 10px;
     background-color: white;
-    border: 1px solid #DADADA;
+    border: 1px solid var(--input-area-border-color);
 }
 
 .msg {
