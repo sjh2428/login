@@ -3,8 +3,9 @@ const classObjs = {};
 const getClasses = () => {
     const idArray = ["id", "msg_id", "pass", "msg_pass", "pass_check", "msg_pass_check", 
         "name", "msg_name", "birthday_year", "birthday_month", "birthday_day", "msg_birthday",
-        "gender", "msg_gender", "email", "msg_email", "tel", "msg_tel", "interest", "ul_interests", 
-        "msg_interest", "interest_del_btn", "terms_check", "terms_string", "reset_btn", "sign_in_btn"
+        "gender", "msg_gender", "email", "msg_email", "tel", "msg_tel", "interest", "ul_interests", "input_interest",
+        "msg_interest", "interest_del_btn", "terms_check", "terms_agree_string", "reset_btn", "sign_in_btn",
+        "terms_modal", "terms_modal_exit_btn", "terms_modal_agree_btn"
     ];
     for (let i = 0; i < idArray.length; i++) {
         classObjs[idArray[i]] = document.querySelector(`.${idArray[i]}`);
@@ -12,6 +13,10 @@ const getClasses = () => {
             classObjs[idArray[i]].classList.add("err_msg");
         }
     }
+}
+
+const interestFocusHandler = () => {
+    classObjs["interest"].focus();
 }
 
 const focusHandler = (e) => {
@@ -311,6 +316,22 @@ const interestHandler = (e) => {
 
 const interestDelHandler = (e) => {
     e.target.parentNode.remove();
+    const interestsCnt = classObjs["ul_interests"].childNodes.length;
+    const interestMsg = classObjs["msg_interest"];
+    checkInterest(interestsCnt, interestMsg);
+}
+
+const termsHandler = () => {
+    classObjs["terms_modal"].style.display = "block";
+}
+
+const termsModalExitHandler = () => {
+    classObjs["terms_modal"].style.display = "none";
+}
+
+const termsModalAgreeHandler = () => {
+    classObjs["terms_check"].checked = true;
+    classObjs["terms_modal"].style.display = "none";
 }
 
 const init = () => {
@@ -327,8 +348,11 @@ const init = () => {
     classObjs["gender"].addEventListener("change", genderHandler);
     classObjs["email"].addEventListener("keyup", emailHandler);
     classObjs["tel"].addEventListener("keyup", telHandler);
+    classObjs["input_interest"].addEventListener("click", interestFocusHandler);
     classObjs["interest"].addEventListener("keyup", interestHandler); // keydown은 마지막 글자가 같이 지워짐
-
+    classObjs["terms_agree_string"].addEventListener("click", termsHandler);
+    classObjs["terms_modal_exit_btn"].addEventListener("click", termsModalExitHandler);
+    classObjs["terms_modal_agree_btn"].addEventListener("click", termsModalAgreeHandler);
 }
 
 init();
