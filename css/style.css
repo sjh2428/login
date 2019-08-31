@@ -227,6 +227,66 @@ select {
     border: 1px solid var(--input-area-border-color);
 }
 
+@keyframes bottom_up {
+    from {
+        display: none;
+        opacity: 0;
+        padding-top: 40px;
+    }
+    to {
+        display: flex;
+        opacity: 1;
+        padding-top: 0px;
+    }
+}
+
+.wrap_reset_modal {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: fixed;
+    background-color: rgba(0,0,0,0.4);
+    top: 0;
+    left: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    animation: bottom_up 0.5s;
+}
+
+.reset_modal {
+    width: var(--main-content-width);
+    height: 200px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background-color: var(--main-bg-color);
+}
+
+.reset_modal_warning_string {
+    font-weight: 500;
+    font-size: 22px;
+}
+
+.reset_modal_btns {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+}
+
+.reset_ok_btn, .reset_cancel_btn {
+    width: 130px;
+    height: 60px;
+    background-color: var(--main-btn-color);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
 .msg {
     font-size: 13px;
 }

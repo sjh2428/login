@@ -1,11 +1,12 @@
 const classObjs = {};
 
 const getClasses = () => {
-    const idArray = ["id", "msg_id", "pass", "msg_pass", "pass_check", "msg_pass_check", 
+    const idArray = ["sign_up_form", "id", "msg_id", "pass", "msg_pass", "pass_check", "msg_pass_check", 
         "name", "msg_name", "birthday_year", "birthday_month", "birthday_day", "msg_birthday",
         "gender", "msg_gender", "email", "msg_email", "tel", "msg_tel", "interest", "ul_interests", "input_interest",
-        "msg_interest", "interest_del_btn", "terms_check", "terms_agree_string", "reset_btn", "sign_in_btn",
-        "terms_modal", "terms_modal_exit_btn", "terms_modal_agree_btn"
+        "msg_interest", "interest_del_btn", "reset_btn", "sign_in_btn",
+        "terms_modal", "terms_modal_exit_btn", "terms_modal_agree_btn", "terms_check", "terms_agree_string",
+        "wrap_reset_modal", "reset_ok_btn", "reset_cancel_btn"
     ];
     for (let i = 0; i < idArray.length; i++) {
         classObjs[idArray[i]] = document.querySelector(`.${idArray[i]}`);
@@ -334,6 +335,24 @@ const termsModalAgreeHandler = () => {
     classObjs["terms_modal"].style.display = "none";
 }
 
+const resetBtnHandler = () => {
+    classObjs["wrap_reset_modal"].style.display = "flex";
+}
+
+const resetOkBtnHandler = () => {
+    classObjs["sign_up_form"].reset();
+    document.querySelectorAll(".msg").forEach(msgClass => {
+        changeMsgClass(msgClass, "pass_msg", "err_msg");
+        msgClass.innerHTML = "&nbsp";
+    });
+    classObjs["ul_interests"].innerHTML = "";
+    classObjs["wrap_reset_modal"].style.display = "none";
+}
+
+const resetCancelBtnHandler = () => {
+    classObjs["wrap_reset_modal"].style.display = "none";
+}
+
 const init = () => {
     getClasses();
     injectFocusEvent();
@@ -353,6 +372,9 @@ const init = () => {
     classObjs["terms_agree_string"].addEventListener("click", termsHandler);
     classObjs["terms_modal_exit_btn"].addEventListener("click", termsModalExitHandler);
     classObjs["terms_modal_agree_btn"].addEventListener("click", termsModalAgreeHandler);
+    classObjs["reset_btn"].addEventListener("click", resetBtnHandler);
+    classObjs["reset_ok_btn"].addEventListener("click", resetOkBtnHandler);
+    classObjs["reset_cancel_btn"].addEventListener("click", resetCancelBtnHandler);
 }
 
 init();
