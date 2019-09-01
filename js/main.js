@@ -59,12 +59,12 @@ const changeMsg = (msgClass, from, to, msgString) => {
     msgClass.innerHTML = msgString;
 }
 
-const passedAllCondition = (msgClass, msgString) => {
+const meetAllConditions = (msgClass, msgString) => {
     changeMsg(msgClass, "err_msg", "pass_msg", msgString);
     return true;
 }
 
-const failedCondition = (msgClass, msgString) => {
+const failedToCondition = (msgClass, msgString) => {
     changeMsg(msgClass, "pass_msg", "err_msg", msgString);
     return false;
 }
@@ -76,15 +76,15 @@ const checkId = () => {
     const msgClass = classObjs["msg_id"];
     if (!checkLength(idValue, 5, 20)) {
         msgString = "5자 이상 20자 이하로 입력해주세요.";
-        return failedCondition(msgClass, msgString);
+        return failedToCondition(msgClass, msgString);
     }
     regex = /^[a-z0-9-_]+$/;
     if (!idValue.match(regex)) {
         msgString = "영문 소문자, 숫자와 특수기호(_)(-) 만 사용 가능합니다.";
-        return failedCondition(msgClass, msgString);
+        return failedToCondition(msgClass, msgString);
     }
     msgString = "사용 가능한 아이디입니다.";
-    return passedAllCondition(msgClass, msgString);
+    return meetAllConditions(msgClass, msgString);
 }
 
 const idHandler = () => {
@@ -98,25 +98,25 @@ const checkPass = () => {
     const msgClass = classObjs["msg_pass"];
     if (!checkLength(passValue, 8, 16)) {
         msgString = "8자 이상 16자 이하로 입력해주세요.";
-        return failedCondition(msgClass, msgString);
+        return failedToCondition(msgClass, msgString);
     }
     regex = /^.*[A-Z].*$/;
     if (!passValue.match(regex)) {
         msgString = "영문 대문자를 최소 1자 이상 포함해주세요.";
-        return failedCondition(msgClass, msgString);
+        return failedToCondition(msgClass, msgString);
     }
     regex = /^.*[0-9].*$/;
     if (!passValue.match(regex)) {
         msgString = "숫자를 최소 1자 이상 포함해주세요.";
-        return failedCondition(msgClass, msgString);
+        return failedToCondition(msgClass, msgString);
     }
     regex = /^.*[`~!@#$%^&*()\-_+=[{\]}\\|;:'",<.>/?].*$/;
     if (!passValue.match(regex)) {
         msgString = "특수문자를 최소 1자 이상 포함해주세요.";
-        return failedCondition(msgClass, msgString);
+        return failedToCondition(msgClass, msgString);
     }
     msgString = "안전한 비밀번호입니다.";
-    return passedAllCondition(msgClass, msgString);
+    return meetAllConditions(msgClass, msgString);
 }
 
 const passHandler = () => {
@@ -130,10 +130,10 @@ const checkPassCheck = () => {
     const msgClass = classObjs["msg_pass_check"];
     if (passValue !== passCheckValue) {
         msgString = "비밀번호가 일치하지 않습니다.";
-        return failedCondition(msgClass, msgString);
+        return failedToCondition(msgClass, msgString);
     }
     msgString = "비밀번호가 일치합니다.";
-    return passedAllCondition(msgClass, msgString);
+    return meetAllConditions(msgClass, msgString);
 }
 
 const passCheckHandler = () => {
@@ -156,10 +156,10 @@ const checkName = () => {
     const msgClass = classObjs["msg_name"];
     if (nameValue.length < 2) {
         msgString = "2글자 이상의 이름을 입력해주세요.";
-        return failedCondition(msgClass, msgString);
+        return failedToCondition(msgClass, msgString);
     }
     msgString = "&nbsp;";
-    return passedAllCondition(msgClass, msgString);
+    return meetAllConditions(msgClass, msgString);
 }
 
 const nameHandler = () => {
@@ -178,28 +178,28 @@ const checkBirth = () => {
     const upperBound = lowerBound + 99;
     if (isNaN(Number(yearValue)) || yearValue.length !== 4) {
         msgString = "태어난 년도 4자리를 정확하게 입력하세요.";
-        return failedCondition(msgClass, msgString);
+        return failedToCondition(msgClass, msgString);
     }
     yearValue = Number(yearValue);
     if (checkBound(yearValue, lowerBound, upperBound)) {
         msgString = "만 14세 이상 만 99세 이하만 가입 가능합니다.";
-        return failedCondition(msgClass, msgString);
+        return failedToCondition(msgClass, msgString);
     }
     // month handle
     monthValue = Number(monthValue);
     if (isNaN(monthValue)) {
         msgString = "태어난 월을 선택해주세요";
-        return failedCondition(msgClass, msgString);
+        return failedToCondition(msgClass, msgString);
     }
     // day handle
     dayValue = Number(dayValue);
     lastDay = getLastDay(yearValue, monthValue);
     if (isNaN(dayValue) || !checkBound(dayValue, 1, lastDay)) {
         msgString = `태어난 날짜를 다시 확인해주세요. ${yearValue}년 ${monthValue}월은 1일부터 ${lastDay}까지 존재합니다.`;
-        return failedCondition(msgClass, msgString);
+        return failedToCondition(msgClass, msgString);
     }
     msgString = "&nbsp;"
-    return passedAllCondition(msgClass, msgString);
+    return meetAllConditions(msgClass, msgString);
 }
 
 const birthHandler = () => {
@@ -212,10 +212,10 @@ const checkGender = () => {
     const msgClass = classObjs["msg_gender"];
     if (genderValue === "성별") {
         msgString = "성별을 선택해주세요";
-        return failedCondition(msgClass, msgString);
+        return failedToCondition(msgClass, msgString);
     }
     msgString = "&nbsp;";
-    return passedAllCondition(msgClass, msgString);
+    return meetAllConditions(msgClass, msgString);
 }
 
 const genderHandler = () => {
@@ -229,10 +229,10 @@ const checkEmail = () => {
     const regex = /^[A-Za-z0-9]([-_\.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
     if (!emailValue.match(regex)) {
         msgString = "이메일 주소를 다시 확인해주세요.";
-        return failedCondition(msgClass, msgString);
+        return failedToCondition(msgClass, msgString);
     }
     msgString = "&nbsp;";
-    return passedAllCondition(msgClass, msgString);
+    return meetAllConditions(msgClass, msgString);
 }
 
 const emailHandler = () => {
@@ -246,10 +246,10 @@ const checkTel = () => {
     const msgClass = classObjs["msg_tel"];
     if (!telValue.match(regex)) {
         msgString = "형식에 맞지 않는 번호입니다.";
-        return failedCondition(msgClass, msgString);
+        return failedToCondition(msgClass, msgString);
     }
     msgString = "&nbsp;";
-    return passedAllCondition(msgClass, msgString);
+    return meetAllConditions(msgClass, msgString);
 }
 
 const telHandler = () => {
@@ -307,10 +307,10 @@ const checkInterest = () => {
     const msgClass = classObjs["msg_interest"];
     if (interestsCnt < 3) {
         msgString = "3개 이상의 관심사를 입력하세요.";
-        return failedCondition(msgClass, msgString);
+        return failedToCondition(msgClass, msgString);
     }
     msgString = "&nbsp;";
-    return passedAllCondition(msgClass, msgString);
+    return meetAllConditions(msgClass, msgString);
 }
 
 const interestHandler = (e) => {
@@ -339,28 +339,36 @@ const checkTerms = () => {
     const msgClass = classObjs["msg_terms"];
     if (notAgreedTerms()) {
         msgString = "약관에 동의해주세요.";
-        return failedCondition(msgClass, msgString);
+        return failedToCondition(msgClass, msgString);
     }
     msgString = "&nbsp;";
-    return passedAllCondition(msgClass, msgString);
+    return meetAllConditions(msgClass, msgString);
+}
+
+const visualize = (className, displayValue = "flex") => {
+    classObjs[className].style.display = displayValue;
+}
+
+const nonVisualize = (className) => {
+    classObjs[className].style.display = "none";
 }
 
 const termsHandler = () => {
-    classObjs["terms_window"].style.display = "block";
+    visualize("terms_window");
 }
 
-const termsModalExitHandler = () => {
-    classObjs["terms_window"].style.display = "none";
+const termsWindowExitHandler = () => {
+    nonVisualize("terms_window");
 }
 
-const termsModalAgreeHandler = () => {
+const termsWindowAgreeHandler = () => {
     classObjs["terms_check"].checked = true;
-    classObjs["terms_window"].style.display = "none";
+    nonVisualize("terms_window");
 }
 
 const resetBtnHandler = () => {
     classObjs["modal_string"].innerHTML = "모든 내용을 새로 작성하시겠습니까?";
-    classObjs["wrap_modal"].style.display = "flex";
+    visualize("wrap_modal");
     classObjs["modal_ok_btn"].addEventListener("click", resetOkBtnHandler);
     classObjs["modal_cancel_btn"].addEventListener("click", resetCancelBtnHandler);
 }
@@ -377,14 +385,14 @@ const initializeAllMsgClass = () => {
 }
 
 const removeResetFeaturesInModal = () => {
-    classObjs["wrap_modal"].style.display = "none";
+    nonVisualize("wrap_modal");
     classObjs["modal_string"].innerHTML = "";
     classObjs["modal_ok_btn"].removeEventListener("click", resetOkBtnHandler);
     classObjs["modal_cancel_btn"].removeEventListener("click", resetCancelBtnHandler);
 }
 
 const resetOkBtnHandler = () => {
-    removeAllInputData();
+    initializeAllInputData();
     initializeAllMsgClass();
     removeResetFeaturesInModal();
 }
@@ -404,20 +412,20 @@ const createFulfillMsgList = () => {
 }
 
 const fulfillModalOkBtnHandler = () => {
-    classObjs["wrap_modal"].style.display = "none";
+    nonVisualize("wrap_modal");
     classObjs["modal_ok_btn"].style.width = "130px";
-    classObjs["modal_cancel_btn"].style.display = "flex";
+    visualize("modal_cancel_btn");
     classObjs["modal_string"].innerHTML += "";
     classObjs["modal_content"].style.height = "200px";
     classObjs["modal_ok_btn"].removeEventListener("click", fulfillModalOkBtnHandler);
 }
 
 const removeCancelBtnInModal = () => {
-    classObjs["modal_cancel_btn"].style.display = "none";
+    nonVisualize("modal_cancel_btn");
 }
 
-const expandOkBtnInModal = () => {
-    classObjs["modal_ok_btn"].style.width = "100%";
+const expandOkBtnInModal = (size) => {
+    classObjs["modal_ok_btn"].style.width = size;
 }
 
 const makeFulfillMsg = (fulfillMsgList) => {
@@ -428,9 +436,14 @@ const makeFulfillMsg = (fulfillMsgList) => {
     return fulfillMsg;
 }
 
+const allEnteredDataIsCorrect = (fulfillMsgList) => {
+    return fulfillMsgList.length === 0;
+}
+
 const signInBtnHandler = () => {
     const fulfillMsgList = createFulfillMsgList();
-    if (fulfillMsg.length === 0) { // 전체 입력 form이 올바르게 입력되었다면
+    if (allEnteredDataIsCorrect(fulfillMsgList)) { // 전체 입력 form이 올바르게 입력되었다면
+        console.log("meet all conditions")
         // fetch등을 사용하여 회원가입 진행
         // -----------
         // code ..
@@ -438,9 +451,9 @@ const signInBtnHandler = () => {
     } else { // 전체 입력 form이 올바르게 입력되지 않았다면
         // modal을 사용하여 입력하라 알려줌
         removeCancelBtnInModal();
-        expandOkBtnInModal();
+        expandOkBtnInModal("100%");
+        visualize("wrap_modal");
         classObjs["modal_string"].innerHTML = makeFulfillMsg(fulfillMsgList);
-        classObjs["wrap_modal"].style.display = "flex";
         classObjs["modal_content"].style.height = `${200 + ((fulfillMsgList.length - 1) * 20)}px`;
         classObjs["modal_ok_btn"].addEventListener("click", fulfillModalOkBtnHandler);
     }
@@ -462,8 +475,8 @@ const injectEventListener = () => {
     classObjs["input_interest"].addEventListener("click", interestFocusHandler);
     classObjs["interest"].addEventListener("keyup", interestHandler); // keydown은 마지막 글자가 같이 지워짐
     classObjs["terms_agree_string"].addEventListener("click", termsHandler);
-    classObjs["terms_window_exit_btn"].addEventListener("click", termsModalExitHandler);
-    classObjs["terms_window_agree_btn"].addEventListener("click", termsModalAgreeHandler);
+    classObjs["terms_window_exit_btn"].addEventListener("click", termsWindowExitHandler);
+    classObjs["terms_window_agree_btn"].addEventListener("click", termsWindowAgreeHandler);
     classObjs["reset_btn"].addEventListener("click", resetBtnHandler);
     classObjs["sign_in_btn"].addEventListener("click", signInBtnHandler);
 }
