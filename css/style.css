@@ -129,7 +129,7 @@ select {
     }
 }
 
-.terms_modal {
+.terms_window {
     display: none;
     width: var(--main-content-width);
     position: absolute;
@@ -139,7 +139,7 @@ select {
     animation-name: modal_animation;
 }
 
-.wrap_terms_modal {
+.wrap_terms_window {
     box-sizing: border-box;
     width: 100%;
     height: 250px;
@@ -150,14 +150,14 @@ select {
     background-color: var(--main-bg-color);
 }
 
-.terms_modal_exit_btn {
+.terms_window_exit_btn {
     position: absolute;
     right: 8px;
     top: 8px;
     cursor: pointer;
 }
 
-.terms_modal_guide_wrap {
+.terms_window_guide_wrap {
     width: 100%;
     height: 100%;
     padding: 0px 15px;
@@ -167,14 +167,14 @@ select {
     justify-content: space-around;
 }
 
-.terms_modal_guide_title {
+.terms_window_guide_title {
     margin-top: 15px;
     font-size: 17px;
     font-weight: 500;
     align-self: flex-start;
 }
 
-.terms_modal_guide_detail {
+.terms_window_guide_detail {
     overflow-y: scroll;
     width: 380px;
     height: 100px;
@@ -184,7 +184,7 @@ select {
     background-color: white;
 }
 
-.terms_modal_agree_btn {
+.terms_window_agree_btn {
     width: 40%;
     height: 40px;
     background-color: var(--main-btn-color);
@@ -240,7 +240,7 @@ select {
     }
 }
 
-.wrap_reset_modal {
+.wrap_modal {
     width: 100%;
     height: 100%;
     z-index: 1;
@@ -254,7 +254,7 @@ select {
     animation: bottom_up 0.5s;
 }
 
-.reset_modal {
+.modal_content {
     width: var(--main-content-width);
     height: 200px;
     box-sizing: border-box;
@@ -265,18 +265,18 @@ select {
     background-color: var(--main-bg-color);
 }
 
-.reset_modal_warning_string {
+.modal_string {
     font-weight: 500;
     font-size: 22px;
 }
 
-.reset_modal_btns {
+.modal_btns {
     display: flex;
     justify-content: space-between;
     width: 300px;
 }
 
-.reset_ok_btn, .reset_cancel_btn {
+.modal_ok_btn, .modal_cancel_btn {
     width: 130px;
     height: 60px;
     background-color: var(--main-btn-color);

@@ -1,19 +1,19 @@
 const classObjs = {};
 
 const getClasses = () => {
-    const idArray = ["sign_up_form", "id", "msg_id", "pass", "msg_pass", "pass_check", "msg_pass_check", 
+    const classNames = ["sign_up_form", "id", "msg_id", "pass", "msg_pass", "pass_check", "msg_pass_check", 
         "name", "msg_name", "birthday_year", "birthday_month", "birthday_day", "msg_birthday",
         "gender", "msg_gender", "email", "msg_email", "tel", "msg_tel", "interest", "ul_interests", "input_interest",
         "msg_interest", "interest_del_btn", "reset_btn", "sign_in_btn",
-        "terms_modal", "terms_modal_exit_btn", "terms_modal_agree_btn", "terms_check", "terms_agree_string",
-        "wrap_reset_modal", "reset_ok_btn", "reset_cancel_btn"
+        "terms_window", "terms_window_exit_btn", "terms_window_agree_btn", "terms_check", "terms_agree_string",
+        "wrap_modal", "modal_ok_btn", "modal_cancel_btn", "modal_string"
     ];
-    for (let i = 0; i < idArray.length; i++) {
-        classObjs[idArray[i]] = document.querySelector(`.${idArray[i]}`);
-        if (idArray[i].includes("msg")) {
-            classObjs[idArray[i]].classList.add("err_msg");
+    classNames.forEach(className => {
+        classObjs[className] = document.querySelector(`.${className}`);
+        if (className.includes("msg")) {
+            classObjs[className].classList.add("err_msg");
         }
-    }
+    });
 }
 
 const interestFocusHandler = () => {
@@ -323,34 +323,47 @@ const interestDelHandler = (e) => {
 }
 
 const termsHandler = () => {
-    classObjs["terms_modal"].style.display = "block";
+    classObjs["terms_window"].style.display = "block";
 }
 
 const termsModalExitHandler = () => {
-    classObjs["terms_modal"].style.display = "none";
+    classObjs["terms_window"].style.display = "none";
 }
 
 const termsModalAgreeHandler = () => {
     classObjs["terms_check"].checked = true;
-    classObjs["terms_modal"].style.display = "none";
+    classObjs["terms_window"].style.display = "none";
 }
 
 const resetBtnHandler = () => {
-    classObjs["wrap_reset_modal"].style.display = "flex";
+    classObjs["modal_string"].innerHTML = "모든 내용을 새로 작성하시겠습니까?";
+    classObjs["wrap_modal"].style.display = "flex";
+    classObjs["modal_ok_btn"].addEventListener("click", resetOkBtnHandler);
+    classObjs["modal_cancel_btn"].addEventListener("click", resetCancelBtnHandler);
 }
 
 const resetOkBtnHandler = () => {
     classObjs["sign_up_form"].reset();
+    classObjs["modal_string"].innerHTML = "";
     document.querySelectorAll(".msg").forEach(msgClass => {
         changeMsgClass(msgClass, "pass_msg", "err_msg");
         msgClass.innerHTML = "&nbsp";
     });
     classObjs["ul_interests"].innerHTML = "";
-    classObjs["wrap_reset_modal"].style.display = "none";
+    classObjs["wrap_modal"].style.display = "none";
+    classObjs["modal_ok_btn"].removeEventListener("click", resetOkBtnHandler);
+    classObjs["modal_cancel_btn"].removeEventListener("click", resetCancelBtnHandler);
 }
 
 const resetCancelBtnHandler = () => {
-    classObjs["wrap_reset_modal"].style.display = "none";
+    classObjs["wrap_modal"].style.display = "none";
+    classObjs["modal_string"].innerHTML = "";
+    classObjs["modal_ok_btn"].removeEventListener("click", resetOkBtnHandler);
+    classObjs["modal_cancel_btn"].removeEventListener("click", resetCancelBtnHandler);
+}
+
+const signInBtnHandler = () => {
+    
 }
 
 const init = () => {
@@ -370,11 +383,10 @@ const init = () => {
     classObjs["input_interest"].addEventListener("click", interestFocusHandler);
     classObjs["interest"].addEventListener("keyup", interestHandler); // keydown은 마지막 글자가 같이 지워짐
     classObjs["terms_agree_string"].addEventListener("click", termsHandler);
-    classObjs["terms_modal_exit_btn"].addEventListener("click", termsModalExitHandler);
-    classObjs["terms_modal_agree_btn"].addEventListener("click", termsModalAgreeHandler);
+    classObjs["terms_window_exit_btn"].addEventListener("click", termsModalExitHandler);
+    classObjs["terms_window_agree_btn"].addEventListener("click", termsModalAgreeHandler);
     classObjs["reset_btn"].addEventListener("click", resetBtnHandler);
-    classObjs["reset_ok_btn"].addEventListener("click", resetOkBtnHandler);
-    classObjs["reset_cancel_btn"].addEventListener("click", resetCancelBtnHandler);
+    classObjs["sign_in_btn"].addEventListener("click", signInBtnHandler);
 }
 
 init();
