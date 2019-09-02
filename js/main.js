@@ -4,7 +4,7 @@ const getClasses = () => {
     const classNames = ["wrap_sign_up_modal", "sign_up_form", "id", "msg_id", "pass", "msg_pass", "pass_check", "msg_pass_check", 
         "name", "msg_name", "birthday_year", "birthday_month", "birthday_day", "msg_birthday",
         "gender", "msg_gender", "email", "msg_email", "tel", "msg_tel", "interest", "ul_interests", "input_interest",
-        "msg_interest", "interest_del_btn", "reset_btn", "sign_up_btn", "sign_up_modal_exit_btn",
+        "msg_interest", "interest_del_btn", "reset_btn", "sign_up_btn", "sign_up_modal_exit_btn", "terms_window_guide_detail",
         "terms_window", "terms_window_exit_btn", "terms_window_agree_btn", "terms_check", "terms_agree_string", "msg_terms",
         "wrap_modal", "modal_content", "modal_ok_btn", "modal_cancel_btn", "modal_string",
         "login_form_sign_up_btn", "login_form_login_btn"
@@ -111,7 +111,7 @@ const checkPass = () => {
         msgString = "숫자를 최소 1자 이상 포함해주세요.";
         return failedToCondition(msgClass, msgString);
     }
-    regex = /^.*[`~!@#$%^&*()\-_+=[{\]}\\|;:'",<.>/?].*$/;
+    regex = /^.*[`~!@#$%^&*()\-_+=[{\]}\\|;:'",<\.>/?].*$/;
     if (!passValue.match(regex)) {
         msgString = "특수문자를 최소 1자 이상 포함해주세요.";
         return failedToCondition(msgClass, msgString);
@@ -371,6 +371,21 @@ const nonVisualize = (className) => {
     classObjs[className].style.display = "none";
 }
 
+const termsScrollHandler = (e) => {
+    if (e.target.scrollTop === e.target.scrollHeight - 98) {
+        classObjs["terms_window_agree_btn"].disabled = false;
+        classObjs["terms_window_agree_btn"].style.opacity = 1;
+        classObjs["terms_window_agree_btn"].style.cursor = "pointer";
+        classObjs["terms_window_agree_btn"].addEventListener("click", termsWindowAgreeHandler);
+        classObjs["terms_window_agree_btn"].addEventListener("mouseover", function() {
+            classObjs["terms_window_agree_btn"].style.backgroundColor = "#0BA600";
+        });
+        classObjs["terms_window_agree_btn"].addEventListener("mouseout", function() {
+            classObjs["terms_window_agree_btn"].style.backgroundColor = "#04C759";
+        });
+    }
+}
+
 const termsHandler = () => {
     const inputWidth = document.querySelector(".input_area").offsetWidth;
     classObjs["terms_window"].style.width = `${inputWidth}px`;
@@ -508,9 +523,9 @@ const injectEventListener = () => {
     classObjs["tel"].addEventListener("keyup", telHandler);
     classObjs["input_interest"].addEventListener("click", interestFocusHandler);
     classObjs["interest"].addEventListener("keyup", interestHandler); // keydown은 마지막 글자가 같이 지워짐
+    classObjs["terms_window_guide_detail"].addEventListener("scroll", termsScrollHandler);
     classObjs["terms_agree_string"].addEventListener("click", termsHandler);
     classObjs["terms_window_exit_btn"].addEventListener("click", termsWindowExitHandler);
-    classObjs["terms_window_agree_btn"].addEventListener("click", termsWindowAgreeHandler);
     classObjs["reset_btn"].addEventListener("click", resetBtnHandler);
     classObjs["sign_up_btn"].addEventListener("click", signUpBtnHandler);
     classObjs["login_form_login_btn"].addEventListener("click", loginFormLoginHandler);

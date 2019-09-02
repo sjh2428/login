@@ -264,11 +264,8 @@ select {
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
-}
-
-.terms_window_agree_btn:hover {
-    background-color: var(--btn-hover-color);
+    border: 0px;
+    opacity: 0.4;
 }
 
 .terms_check {

@@ -113,3 +113,9 @@
 1. [x] 회원가입 modal
     - 띄우기, 닫기
     - 회원가입 validation, reset, 회원가입 기능 테스트
+
+### JS Literalize
+- Check
+- Event
+- Message
+- Modal
