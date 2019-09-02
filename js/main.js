@@ -7,7 +7,7 @@ const getClasses = () => {
         "msg_interest", "interest_del_btn", "reset_btn", "sign_up_btn", "sign_up_modal_exit_btn",
         "terms_window", "terms_window_exit_btn", "terms_window_agree_btn", "terms_check", "terms_agree_string", "msg_terms",
         "wrap_modal", "modal_content", "modal_ok_btn", "modal_cancel_btn", "modal_string",
-        "login_form_sign_up_btn"
+        "login_form_sign_up_btn", "login_form_login_btn"
     ];
     classNames.forEach(className => {
         classObjs[className] = document.querySelector(`.${className}`);
@@ -480,6 +480,11 @@ const signUpBtnHandler = () => {
     }
 }
 
+const loginFormLoginHandler = () => {
+    // fetch등을 활용하여 로그인
+    // code ...
+}
+
 const loginFormSignUpHandler = () => {
     visualize("wrap_sign_up_modal");
 }
@@ -508,6 +513,7 @@ const injectEventListener = () => {
     classObjs["terms_window_agree_btn"].addEventListener("click", termsWindowAgreeHandler);
     classObjs["reset_btn"].addEventListener("click", resetBtnHandler);
     classObjs["sign_up_btn"].addEventListener("click", signUpBtnHandler);
+    classObjs["login_form_login_btn"].addEventListener("click", loginFormLoginHandler);
     classObjs["login_form_sign_up_btn"].addEventListener("click", loginFormSignUpHandler);
     classObjs["sign_up_modal_exit_btn"].addEventListener("click", signUpModalExitBtnHandler);
 }
