@@ -2,7 +2,7 @@
     --main-bg-color: #F5F6F7;
     --main-content-width: 450px;
     --main-title-color: #03A600;
-    --main-btn-color: #0BA600;
+    --main-btn-color: #04C759;
     --err-msg: #FE2924;
     --pass-msg: #1BAA17;
     --input-area-border-color: #DADADA;
@@ -12,13 +12,14 @@
     --interest-border-color: #B7B7B7;
     --interest-font-color: #666666;
     --interest-height: 33px;
-    --login-btn-color: #04C759;
+    --btn-hover-color: #0BA600;
 }
 
 body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: var(--main-bg-color);
 }
 
 label {
@@ -59,7 +60,7 @@ select {
     width: 100%;
     height: 45px;
     color: white;
-    background-color: var(--login-btn-color);
+    background-color: var(--main-btn-color);
     border: 0px;
     border-radius: 5px;
     font-weight: 600;
@@ -70,7 +71,7 @@ select {
 }
 
 .login_form_login_btn:hover, .login_form_sign_up_btn:hover {
-    background-color: var(--main-title-color);
+    background-color: var(--btn-hover-color);
 }
 
 .ul_interests {
@@ -266,6 +267,10 @@ select {
     cursor: pointer;
 }
 
+.terms_window_agree_btn:hover {
+    background-color: var(--btn-hover-color);
+}
+
 .terms_check {
     width: auto;
 }
@@ -275,8 +280,7 @@ select {
     justify-content: space-between;
 }
 
-.reset_btn,
-.sign_up_btn {
+.reset_btn, .sign_up_btn {
     width: 48%;
     height: 70px;
     color: white;
@@ -286,6 +290,10 @@ select {
     align-items: center;
     cursor: pointer;
     font-size: 18px;
+}
+
+.reset_btn:hover, .sign_up_btn:hover {
+    background-color: var(--btn-hover-color);
 }
 
 .wrap_label_input_msg:not(.wrap_title) {
@@ -344,6 +352,10 @@ select {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+}
+
+.modal_ok_btn:hover, .modal_cancel_btn:hover {
+    background-color: var(--btn-hover-color);
 }
 
 .sign_up_modal_exit_btn {
