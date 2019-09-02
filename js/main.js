@@ -1,12 +1,13 @@
 const classObjs = {};
 
 const getClasses = () => {
-    const classNames = ["sign_up_form", "id", "msg_id", "pass", "msg_pass", "pass_check", "msg_pass_check", 
+    const classNames = ["wrap_sign_up_modal", "sign_up_form", "id", "msg_id", "pass", "msg_pass", "pass_check", "msg_pass_check", 
         "name", "msg_name", "birthday_year", "birthday_month", "birthday_day", "msg_birthday",
         "gender", "msg_gender", "email", "msg_email", "tel", "msg_tel", "interest", "ul_interests", "input_interest",
-        "msg_interest", "interest_del_btn", "reset_btn", "sign_in_btn",
+        "msg_interest", "interest_del_btn", "reset_btn", "sign_up_btn", "sign_up_modal_exit_btn",
         "terms_window", "terms_window_exit_btn", "terms_window_agree_btn", "terms_check", "terms_agree_string", "msg_terms",
-        "wrap_modal", "modal_content", "modal_ok_btn", "modal_cancel_btn", "modal_string"
+        "wrap_modal", "modal_content", "modal_ok_btn", "modal_cancel_btn", "modal_string",
+        "login_form_sign_up_btn"
     ];
     classNames.forEach(className => {
         classObjs[className] = document.querySelector(`.${className}`);
@@ -128,6 +129,10 @@ const checkPassCheck = () => {
     const passValue = classObjs["pass"].value;
     const passCheckValue = classObjs["pass_check"].value;
     const msgClass = classObjs["msg_pass_check"];
+    if (!checkLength(passCheckValue, 8, 16)) {
+        msgString = "8자 이상 16자 이하로 입력해주세요.";
+        return failedToCondition(msgClass, msgString);
+    }
     if (passValue !== passCheckValue) {
         msgString = "비밀번호가 일치하지 않습니다.";
         return failedToCondition(msgClass, msgString);
@@ -166,13 +171,8 @@ const nameHandler = () => {
     checkName();
 }
 
-const checkBirth = () => {
+const checkBirthYear = (yearValue, msgClass) => {
     let msgString = "";
-    let yearValue = classObjs["birthday_year"].value;
-    let monthValue = classObjs["birthday_month"].value;
-    let dayValue = classObjs["birthday_day"].value;
-    const msgClass = classObjs["msg_birthday"];
-    // year handle
     const nowYear = new Date().getFullYear();
     const lowerBound = nowYear - 14;
     const upperBound = lowerBound + 99;
@@ -185,21 +185,39 @@ const checkBirth = () => {
         msgString = "만 14세 이상 만 99세 이하만 가입 가능합니다.";
         return failedToCondition(msgClass, msgString);
     }
-    // month handle
+    return true;
+}
+
+const checkBirthMonth = (monthValue, msgClass) => {
     monthValue = Number(monthValue);
     if (isNaN(monthValue)) {
-        msgString = "태어난 월을 선택해주세요";
+        const msgString = "태어난 월을 선택해주세요";
         return failedToCondition(msgClass, msgString);
     }
-    // day handle
+    return true;
+}
+
+const checkBirthDay = (yearValue, monthValue, dayValue, msgClass) => {
     dayValue = Number(dayValue);
-    lastDay = getLastDay(yearValue, monthValue);
+    const lastDay = getLastDay(yearValue, monthValue);
     if (isNaN(dayValue) || !checkBound(dayValue, 1, lastDay)) {
         msgString = `태어난 날짜를 다시 확인해주세요. ${yearValue}년 ${monthValue}월은 1일부터 ${lastDay}까지 존재합니다.`;
         return failedToCondition(msgClass, msgString);
     }
-    msgString = "&nbsp;"
-    return meetAllConditions(msgClass, msgString);
+    return true;
+}
+
+const checkBirth = () => {
+    const yearValue = classObjs["birthday_year"].value;
+    const monthValue = classObjs["birthday_month"].value;
+    const dayValue = classObjs["birthday_day"].value;
+    const msgClass = classObjs["msg_birthday"];
+    if (checkBirthYear(yearValue, msgClass) && checkBirthMonth(monthValue, msgClass)
+            && checkBirthDay(yearValue, monthValue, dayValue, msgClass)) {
+        const msgString = "&nbsp;"
+        return meetAllConditions(msgClass, msgString);
+    }
+    return false;
 }
 
 const birthHandler = () => {
@@ -331,7 +349,7 @@ const interestDelHandler = (e) => {
 }
 
 const notAgreedTerms = () => {
-    return !classObjs["terms_check"].checked;
+    return classObjs["terms_check"].checked === false;
 }
 
 const checkTerms = () => {
@@ -354,6 +372,8 @@ const nonVisualize = (className) => {
 }
 
 const termsHandler = () => {
+    const inputWidth = document.querySelector(".input_area").offsetWidth;
+    classObjs["terms_window"].style.width = `${inputWidth}px`;
     visualize("terms_window");
 }
 
@@ -363,6 +383,7 @@ const termsWindowExitHandler = () => {
 
 const termsWindowAgreeHandler = () => {
     classObjs["terms_check"].checked = true;
+    checkTerms();
     nonVisualize("terms_window");
 }
 
@@ -440,7 +461,7 @@ const allEnteredDataIsCorrect = (fulfillMsgList) => {
     return fulfillMsgList.length === 0;
 }
 
-const signInBtnHandler = () => {
+const signUpBtnHandler = () => {
     const fulfillMsgList = createFulfillMsgList();
     if (allEnteredDataIsCorrect(fulfillMsgList)) { // 전체 입력 form이 올바르게 입력되었다면
         console.log("meet all conditions")
@@ -454,9 +475,17 @@ const signInBtnHandler = () => {
         expandOkBtnInModal("100%");
         visualize("wrap_modal");
         classObjs["modal_string"].innerHTML = makeFulfillMsg(fulfillMsgList);
-        classObjs["modal_content"].style.height = `${200 + ((fulfillMsgList.length - 1) * 20)}px`;
+        classObjs["modal_content"].style.height = `${200 + ((fulfillMsgList.length - 1) * 25)}px`;
         classObjs["modal_ok_btn"].addEventListener("click", fulfillModalOkBtnHandler);
     }
+}
+
+const loginFormSignUpHandler = () => {
+    visualize("wrap_sign_up_modal");
+}
+
+const signUpModalExitBtnHandler = () => {
+    nonVisualize("wrap_sign_up_modal");
 }
 
 const injectEventListener = () => {
@@ -478,7 +507,9 @@ const injectEventListener = () => {
     classObjs["terms_window_exit_btn"].addEventListener("click", termsWindowExitHandler);
     classObjs["terms_window_agree_btn"].addEventListener("click", termsWindowAgreeHandler);
     classObjs["reset_btn"].addEventListener("click", resetBtnHandler);
-    classObjs["sign_in_btn"].addEventListener("click", signInBtnHandler);
+    classObjs["sign_up_btn"].addEventListener("click", signUpBtnHandler);
+    classObjs["login_form_sign_up_btn"].addEventListener("click", loginFormSignUpHandler);
+    classObjs["sign_up_modal_exit_btn"].addEventListener("click", signUpModalExitBtnHandler);
 }
 
 const init = () => {
