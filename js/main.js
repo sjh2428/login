@@ -228,7 +228,7 @@ const checkGender = () => {
     let msgString = "";
     const genderValue = classObjs["gender"].value;
     const msgClass = classObjs["msg_gender"];
-    if (genderValue === "성별") {
+    if (genderValue === "gender") {
         msgString = "성별을 선택해주세요";
         return failedToCondition(msgClass, msgString);
     }
