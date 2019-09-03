@@ -146,6 +146,8 @@ const passCheckHandler = () => {
 }
 
 const getLastDay = (yearValue, monthValue) => {
+    yearValue = Number(yearValue);
+    monthValue = Number(monthValue);
     let dateObjForLastDay;
     if (monthValue === 12) {
         dateObjForLastDay = new Date(new Date(`${yearValue + 1}-01-01 00:00:00`).getTime() - 1);
@@ -396,7 +398,8 @@ const termsWindowExitHandler = () => {
     nonVisualize("terms_window");
 }
 
-const termsWindowAgreeHandler = () => {
+const termsWindowAgreeHandler = (e) => {
+    e.preventDefault();
     classObjs["terms_check"].checked = true;
     checkTerms();
     nonVisualize("terms_window");
