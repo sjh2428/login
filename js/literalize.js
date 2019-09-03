@@ -177,8 +177,7 @@ const CheckObjs = {
             }
         });
         return returnMsgList;
-    },
-    
+    }
 }
 
 const Condition = {
@@ -214,28 +213,28 @@ const EventObjs = {
         this.injectFocusEventToTagArray(selectTags);
     },
     idHandler() {
-        CheckObjs.checkId();
+        this.checkId();
     },
     passHandler() {
-        CheckObjs.checkPass();
+        this.checkPass();
     },
     passCheckHandler() {
-        CheckObjs.checkPassCheck();
+        this.checkPassCheck();
     },
     nameHandler() {
-        CheckObjs.checkName();
+        this.checkName();
     },
     birthHandler() {
-        CheckObjs.checkBirth();
+        this.checkBirth();
     },
     genderHandler() {
-        CheckObjs.checkGender();
+        this.checkGender();
     },
     emailHandler() {
-        CheckObjs.checkEmail();
+        this.checkEmail();
     },
     telHandler() {
-        CheckObjs.checkTel();
+        this.checkTel();
     },
     termsHandler() {
         const inputWidth = document.querySelector(".input_area").offsetWidth;
@@ -248,7 +247,7 @@ const EventObjs = {
     termsWindowAgreeHandler(e) {
         e.preventDefault();
         classObjs["terms_check"].checked = true;
-        CheckObjs.checkTerms();
+        this.checkTerms();
         ControlObjs.nonVisualize("terms_window");
     },
     resetBtnHandler() {
@@ -299,7 +298,7 @@ const EventObjs = {
         return checkMsgList.length === 0;
     },
     signUpBtnHandler() {
-        const checkMsgList = CheckObjs.makeCheckList();
+        const checkMsgList = this.makeCheckList();
         if (this.allEnteredDataIsCorrect(checkMsgList)) { // 전체 입력 form이 올바르게 입력되었다면
             console.log("meet all conditions")
             // fetch등을 사용하여 회원가입 진행
@@ -412,11 +411,11 @@ const EventObjs = {
         if (this.lastInputIsComma(e)) {
             this.appendInterest(e);
         }
-        CheckObjs.checkInterest();
+        this.checkInterest();
     },
     interestDelHandler(e) {
         e.target.parentNode.remove();
-        CheckObjs.checkInterest();
+        this.checkInterest();
     },
     focusHandler(e) {
         e.target.parentNode.style = "border-color: #56C151;";
@@ -424,7 +423,7 @@ const EventObjs = {
     focusOutHandler(e) {
         e.target.parentNode.style = "border-color: #DADADA;";
     }
-}
+};
 
 const MessageObjs = {
     changeMsg(msgClass, from, to, msgString) {
@@ -462,4 +461,5 @@ const UtilObjs = {
     }
 }
 
+Object.setPrototypeOf(EventObjs, CheckObjs);
 EventObjs.injectEvents();
