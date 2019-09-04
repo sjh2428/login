@@ -119,3 +119,66 @@
 - Event
 - Message
 - Modal
+
+
+## 2주차 - 회원가입/로그인 Back-End
+### 환경설정 및 사전작업
+1. [x] express-generator를 활용한 폴더구조 변경 및 기본 파일 배치
+2. [ ] Mocha Test Framework 설치
+    - node-mocks-http - http request test
+3. [ ] nodemon
+    - 파일이 수정되면 자동으로 서버 재시작
+4. [ ] lowdb
+    - database handle
+5. [x] README.md 작성
+
+### 라우팅
+1. [ ] 메인
+    - 쿠키를 활용하여 로그인된 데이터가 존재하면 메인화면을 보여주고, 로그인 되어있지 않다면 로그인 화면을 라우팅
+    - URL: /
+    - method: GET
+2. [ ] 로그인
+    - 아이디가 DB에 존재하는지
+    - 존재한다면 해당 아이디는 입력된 비밀번호가 DB에서의 비밀번호와 일치하는지
+    - 맞다면 회원정보를 JSON Return
+    - URL: /login
+    - method: POST
+3. [ ] 로그아웃
+    - 로그아웃 버튼을 누르면 브라우저상의 쿠키정보 제거
+    - 메인으로 redirect
+    - URL: /logout
+    - method: GET
+4. [ ] 회원가입
+    - 입력된 데이터를 DB에 추가
+    - 입력된 데이터를 토대로 쿠키에 로그인 정보 설정
+    - 메인으로 redirect
+    - URL: /sign-in
+    - method: POST
+
+### DB
+#### user_table
+- UUID - Primary Key
+- ID
+- Password
+- Name
+- Birth year, month, day
+- Gender
+- Email
+- Tel
+- Interests
+
+#### CRUD
+1. [ ] Create
+2. [ ] Read
+3. [ ] Update
+4. [ ] Delete
+
+### 로그인 후 화면
+#### HTML/CSS
+1. [ ] 로그인 이후의 화면
+
+#### JS
+1. [ ] 로그아웃 Handler
+
+### 배포
+1. [ ] deploy
