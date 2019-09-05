@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www --ignore '*.json'",
+    "test": "node_modules/.bin/mocha ./spec/*.spec.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -12,7 +13,8 @@
     "http-errors": "~1.6.3",
     "lowdb": "^1.0.0",
     "morgan": "~1.9.1",
-    "pug": "^2.0.4"
+    "pug": "^2.0.4",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "assert": "^2.0.0",
