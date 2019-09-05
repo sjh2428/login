@@ -131,6 +131,7 @@
 4. [ ] lowdb
     - database handle
 5. [x] README.md 작성
+6. [x] html to pug 변환
 
 ### 라우팅
 1. [ ] 메인
