@@ -124,11 +124,14 @@
 ## 2주차 - 회원가입/로그인 Back-End
 ### 환경설정 및 사전작업
 1. [x] express-generator를 활용한 폴더구조 변경 및 기본 파일 배치
-2. [ ] Mocha Test Framework 설치
+2. [x] Mocha Test Framework 설치
+    - mocha
     - node-mocks-http - http request test
-3. [ ] nodemon
+    - should
+    - assert
+3. [x] nodemon
     - 파일이 수정되면 자동으로 서버 재시작
-4. [ ] lowdb
+4. [x] lowdb
     - database handle
 5. [x] README.md 작성
 6. [x] html to pug 변환
