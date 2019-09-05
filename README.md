@@ -172,10 +172,10 @@
 - Interests
 
 #### CRUD
-1. [ ] Create
-2. [ ] Read
-3. [ ] Update
-4. [ ] Delete
+1. [x] Create
+2. [x] Read
+3. [x] Update
+4. [x] Delete
 
 ### 로그인 후 화면
 #### HTML/CSS
