@@ -37,4 +37,18 @@ const isEqualPassword = (key, password) => {
     return password === userPassword;
 }
 
-module.exports = { isEqualWithUserId, isThereId, isEqualPassword };
+const makePrettyInfo = (info) => {
+    const result = {};
+    for(let key in info) {
+        result[key] = info[key].trim();
+    }
+    result["interests"] = info["interests"].split(",");
+    return result;
+}
+
+const pushNewUser = (info) => {
+    info = makePrettyInfo(info);
+    userModel.createUser(info);
+}
+
+module.exports = { isEqualWithUserId, isThereId, isEqualPassword, pushNewUser };
