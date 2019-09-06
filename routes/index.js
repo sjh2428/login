@@ -5,8 +5,7 @@ const homeController = require("../controller/homeController");
 
 const haveCookie = (id) => id !== undefined;
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
     const cookieId = req.cookies.sessionId;
     const isUser = homeController.isEqualWithUserId(cookieId);
     const [RESULT, DATA] = [0, 1];
@@ -17,16 +16,16 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'Login', login: false });
 });
 
-router.get('/logout', function(req, res, next) {
+router.get('/logout', (req, res, next) => {
     res.cookie("sessionId", uuidv1());
-    res.render('index', { title: 'Login' });
+    res.render('index', { title: 'Login', login: false });
 });
 
-router.post('/login', function(req, res, next) {
+router.post('/login', (req, res, next) => {
 
 });
 
-router.post('/sign-in', function(req, res, next) {
+router.post('/sign-in', (req, res, next) => {
 
 });
 
