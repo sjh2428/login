@@ -498,9 +498,20 @@ const signUpBtnHandler = () => {
     }
 }
 
-const loginFormLoginHandler = () => {
+const loginFormLoginHandler = (e) => {
     // fetch등을 활용하여 로그인
     // code ...
+    e.preventDefault();
+    const data = {};
+    data.login_id = document.querySelector("input[name='login_id']").value;
+    data.login_password = document.querySelector("input[name='login_password']").value;
+    fetch("/login", {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        method: "POST",
+        body: `login_id=${data.login_id}&login_password=${data.login_password}`
+    });
 }
 
 const loginFormSignUpHandler = () => {
