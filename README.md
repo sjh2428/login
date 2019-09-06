@@ -159,6 +159,11 @@
     - URL: /sign-up
     - method: POST
 
+5. [x] 중복체크
+    - 회원가입시 아이디 중복체크를 위한 API Router
+    - URL: /duplicate
+    - method: GET
+
 ### DB
 #### user_table
 - UUID - Primary Key
