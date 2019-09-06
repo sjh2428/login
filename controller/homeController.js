@@ -1,14 +1,13 @@
 const userModel = require("../model/userModel");
 
 /**
- * 세션 아이디를 통해 user db를 탐색하여 일치하는 데이터를 찾아주는 function
+ * user db에서 key값과 matching되는 데이터를 찾아주는 function
  * 
- * @param {String} idInCookie 쿠키에 들어있는 id값을 넣어주어야 함
- * @returns {Array} [result(Boolean), userObject(Object)] 형태로 return
+ * @param {String} key 
+ * @returns {Object} user object
  */
-const isEqualWithUserId = (idInCookie) => {
-    const result = userModel.findUser(idInCookie);
-    return result ? [true, result] : [false, result];
+const getUserData = (key) => {
+    return userModel.findUser(key);
 }
 
 /**
@@ -62,4 +61,4 @@ const pushNewUser = (info) => {
     userModel.createUser(info);
 }
 
-module.exports = { isEqualWithUserId, isThereId, isEqualPassword, pushNewUser };
+module.exports = { getUserData, isThereId, isEqualPassword, pushNewUser };
