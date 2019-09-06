@@ -25,6 +25,12 @@ router.get('/logout', (req, res) => {
     res.redirect('/');
 });
 
+router.get('/duplicate', async(req, res) => {
+    const RESULT = 0;
+    const isThereId = await homeController.isThereId(req.query.id);
+    res.json({duplicated: isThereId[RESULT]});
+});
+
 router.post('/login', async(req, res) => {
     const [RESULT, KEY] = [0, 1];
     const password = req.body.login_password;
