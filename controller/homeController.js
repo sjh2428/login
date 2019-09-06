@@ -37,6 +37,12 @@ const isEqualPassword = (key, password) => {
     return password === userPassword;
 }
 
+/**
+ * make prettier info object
+ * 
+ * @param {Object} info req.body object
+ * @returns {Object} trimmed and splited data
+ */
 const makePrettyInfo = (info) => {
     const result = {};
     for(let key in info) {
@@ -46,6 +52,11 @@ const makePrettyInfo = (info) => {
     return result;
 }
 
+/**
+ * After make prettier info object, create new user
+ * 
+ * @param {Object} info req.body object
+ */
 const pushNewUser = (info) => {
     info = makePrettyInfo(info);
     userModel.createUser(info);
