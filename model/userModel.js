@@ -37,6 +37,9 @@ class UserModel {
     deleteUser(key) {
         this.db.unset(key).write();
     }
+    getAllData() {
+        return this.db.value();
+    }
 }
 
 module.exports = new UserModel();
