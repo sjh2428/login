@@ -6,7 +6,7 @@ const session = require("../session");
 
 const haveCookie = (id) => id !== undefined;
 
-router.get('/', async(req, res) => {
+router.get('/', (req, res) => {
     const [RESULT, KEY] = [0, 1];
     const cookieId = req.cookies.sessionId;
     const sessionId = session.isSessionKey(req.cookies.sessionId); // cookie의 값으로 현재 세션 목록을 탐색하여 존재하는 Session값인지 확인
@@ -25,17 +25,17 @@ router.get('/logout', (req, res) => {
     res.redirect('/');
 });
 
-router.get('/duplicate', async(req, res) => {
+router.get('/duplicate', (req, res) => {
     const RESULT = 0;
-    const isThereId = await homeController.isThereId(req.query.id);
+    const isThereId = homeController.isThereId(req.query.id);
     res.json({duplicated: isThereId[RESULT]});
 });
 
-router.post('/login', async(req, res) => {
+router.post('/login', (req, res) => {
     const [RESULT, KEY] = [0, 1];
     const password = req.body.login_password;
-    const findId = await homeController.isThereId(req.body.login_id);
-    const checkPass = findId[RESULT] ? await homeController.isEqualPassword(findId[KEY], password) : false;
+    const findId = homeController.isThereId(req.body.login_id);
+    const checkPass = findId[RESULT] ? homeController.isEqualPassword(findId[KEY], password) : false;
     // id가 존재하고 비밀번호가 일치한다면
     if (checkPass) {
         res.cookie("sessionId", session.makeSession(findId[KEY]));
@@ -43,10 +43,10 @@ router.post('/login', async(req, res) => {
     res.end();
 });
 
-router.post('/sign-up', async(req, res) => {
+router.post('/sign-up', (req, res) => {
     const KEY = 1;
     homeController.pushNewUser(req.body);
-    const findId = await homeController.isThereId(req.body.id.trim());
+    const findId = homeController.isThereId(req.body.id.trim());
     res.cookie("sessionId", session.makeSession(findId[KEY]));
     res.end();
 });
