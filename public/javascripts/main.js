@@ -459,9 +459,14 @@ const resetCancelBtnHandler = () => {
 
 const createFulfillMsgList = () => {
     const fulfillMsg = [];
-    checkList.forEach(list => {
-        if (!list.func()) {
-            fulfillMsg.push(list.msg);
+    const checkMsg = [
+        "아이디를 확인해주세요.", "비밀번호를 확인해주세요.", "비밀번호 재확인란을 확인해주세요.", "이름을 확인해주세요.", "생년월일을 확인해주세요.", 
+        "성별을 선택해주세요.", "이메일을 확인해주세요.", "전화번호를 확인해주세요.", "관심사를 확인해주세요.", "약관에 동의해주세요."
+    ]
+    const msgs = document.querySelectorAll(".msg");
+    msgs.forEach((msg, idx) => {
+        if (msg.classList.contains("err_msg")) {
+            fulfillMsg.push(checkMsg[idx]);
         }
     });
     return fulfillMsg;
@@ -597,39 +602,5 @@ const init = () => {
     injectFocusEvent();
     injectEventListener();
 }
-
-const checkList = [
-    {
-        func: checkId,
-        msg: "아이디를 확인해주세요."
-    }, {
-        func: checkPass,
-        msg: "비밀번호를 확인해주세요."
-    }, {
-        func: checkPassCheck,
-        msg: "비밀번호 재확인란을 확인해주세요."
-    }, {
-        func: checkName,
-        msg: "이름을 확인해주세요."
-    }, {
-        func: checkBirth,
-        msg: "생년월일을 확인해주세요."
-    }, {
-        func: checkGender,
-        msg: "성별을 선택해주세요."
-    }, {
-        func: checkEmail,
-        msg: "이메일을 확인해주세요."
-    }, {
-        func: checkTel,
-        msg: "전화번호를 확인해주세요."
-    }, {
-        func: checkInterest,
-        msg: "관심사를 확인해주세요."
-    }, {
-        func: checkTerms,
-        msg: "약관에 동의해주세요."
-    }
-]
 
 init();
