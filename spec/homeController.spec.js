@@ -3,7 +3,7 @@ const userModel = require("../model/userModel");
 const homeController = require("../controller/homeController");
 
 describe("getUserData should return correct Object", () => {
-    it("adminkey test", () => {
+    it("adminkey key test", () => {
         assert.deepEqual(homeController.getUserData("adminkey"), {
             "id": "admin",
             "pwd": "qwer1234@!",
@@ -17,7 +17,7 @@ describe("getUserData should return correct Object", () => {
             "interests": ["", "", ""]
         });
     });
-    it("admikey test", () => {
+    it("admikey key test", () => {
         assert.deepEqual(homeController.getUserData("key"), undefined);
         assert.notDeepEqual(homeController.getUserData("key"), {
             "id": "admin",
@@ -35,13 +35,13 @@ describe("getUserData should return correct Object", () => {
 });
 
 describe("isThereId should return correct Array", () => {
-    it("is there id 'admin'", () => {
-        assert.deepEqual(homeController.isThereId("admin"), [true, "adminkey"]);
+    it("there is id 'admin'", () => {
+    assert.deepEqual(homeController.isThereId("admin"), [true, "adminkey"]);
     });
-    it("is there id 'sjh2428'", () => {
+    it("there is id 'sjh2428'", () => {
         assert.deepEqual(homeController.isThereId("sjh2428"), [true, "c75c5630-d071-11e9-a538-b93f9899c8de"]);
     });
-    it("is there id 'sjh2427'", () => {
+    it("there is not id 'sjh2427'", () => {
         assert.deepEqual(homeController.isThereId("sjh2427"), [false, undefined]);
     });
 });
