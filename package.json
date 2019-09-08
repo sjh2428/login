@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www --ignore '*.json'",
-    "test": "node_modules/.bin/mocha ./spec/*.spec.js -w"
+    "test": "node_modules/.bin/mocha ./spec/*.spec.js -w",
+    "build": "webpack -w"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.6.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -18,10 +20,16 @@
     "uuid": "^3.3.3"
   },
   "devDependencies": {
+    "@babel/cli": "^7.6.0",
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
     "assert": "^2.0.0",
+    "babel-loader": "^8.0.6",
     "mocha": "^6.2.0",
     "node-mocks-http": "^1.7.6",
     "nodemon": "^1.19.2",
-    "should": "^13.2.3"
+    "should": "^13.2.3",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.8"
   }
 }
