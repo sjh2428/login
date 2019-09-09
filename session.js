@@ -3,7 +3,7 @@ const uuidv1 = require("uuid/v1");
 const Session = class {
     constructor() {
         this.session = {}
-        this.expireTime = 10 * 1000;
+        this.expireTime = 60 * 1000;
     }
 
     /**
@@ -17,9 +17,16 @@ const Session = class {
         this.session[newId] = userKey;
         setTimeout(() => {
             console.log("delete session", newId, this.session[newId]);
-            delete this.session[newId];
+            this.delSession(newId);
         }, this.expireTime);
         return newId;
+    }
+
+    delSession(key) {
+        if (this.session[key]) {
+            console.log(this.session[key] + " in session class");
+            delete this.session[key];
+        }
     }
 
     /**

@@ -15,8 +15,10 @@ router.get('/', (req, res) => {
             title: 'Login',
             login: true,
             userData: homeController.getUserData(sessionId[KEY])});
+        }
+    if (!haveCookie(cookieId)) {
+        res.cookie("sessionId", uuidv1());
     }
-    res.cookie("sessionId", uuidv1());
     res.render('index', { title: 'Login', login: false });
 });
 
