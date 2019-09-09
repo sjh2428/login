@@ -19,6 +19,4 @@ const getClasses = {
     }
 }
 
-const classObjs = getClasses.getAllData();
-
-export default classObjs
+export default getClasses

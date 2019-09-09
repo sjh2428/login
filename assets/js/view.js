@@ -1,7 +1,9 @@
-import classObjs from "./getClasses";
+import getClasses from "./getClasses";
 import eventHandler from "./eventHandler";
 import message from "./message";
 import util from "./util";
+
+const classObjs = getClasses.getAllData();
 
 const view = {
     appendInterest(e) {

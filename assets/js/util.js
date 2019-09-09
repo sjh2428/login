@@ -1,4 +1,4 @@
-import classObjs from "./getClasses";
+import getClasses from "./getClasses";
 import eventHandler from "./eventHandler";
 
 const util = {
@@ -49,15 +49,15 @@ const util = {
         });
         return fulfillMsg;
     },
+    allEnteredDataIsCorrect(fulfillMsgList) {
+        return fulfillMsgList.length === 0;
+    },
     makeFulfillMsg(fulfillMsgList) {
         let fulfillMsg = "";
         fulfillMsgList.forEach(msg => {
             fulfillMsg += msg + "<br>";
         });
         return fulfillMsg;
-    },
-    allEnteredDataIsCorrect(fulfillMsgList) {
-        return fulfillMsgList.length === 0;
     },
     getInterests(interestsLi) {
         let interests = "";
@@ -68,6 +68,9 @@ const util = {
         return interests;
     },
     injectEventListener() {
+        const classObjs = getClasses.getAllData();
+        console.log(classObjs);
+        console.log(eventHandler.loginFormLoginHandler);
         classObjs["id"].addEventListener("keyup", eventHandler.idHandler);
         classObjs["pass"].addEventListener("keyup", eventHandler.passHandler);
         classObjs["pass_check"].addEventListener("keyup", eventHandler.passCheckHandler);

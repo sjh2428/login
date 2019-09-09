@@ -1,8 +1,10 @@
-import classObjs from "./getClasses";
+import getClasses from "./getClasses";
 import reqApi from "./reqApi";
 import check from "./check";
 import util from "./util";
 import view from "./view";
+
+const classObjs = getClasses.getAllData();
 
 const eventHandler = {
     idHandler() {
