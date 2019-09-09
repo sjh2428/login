@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www --ignore '*.json'",
-    "test": "node_modules/.bin/mocha ./spec/*.spec.js -w",
-    "build": "webpack -w"
+    "test": "node_modules/.bin/mocha ./spec/*.spec.js",
+    "build": "webpack"
   },
   "dependencies": {
     "@babel/polyfill": "^7.6.0",
