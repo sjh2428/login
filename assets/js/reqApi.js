@@ -49,9 +49,7 @@ const api = {
             body: `id=${id}&pwd=${pass}&name=${name}&birthYear=${birthday_year}
                     &birthMonth=${birthday_month}&birthDay=${birthday_day}&gender=${gender}
                     &email=${email}&tel=${tel}&interests=${interests}`
-        }).then(res => res.json().then(res => {
-            console.log(res.result);
-        }));
+        }).then(_ => location.reload());
     },
     checkIdDuplicate(id) {
         return fetch(`/duplicate?id=${id}`, {
