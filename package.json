@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www --ignore '*.json'",
+    "start": "node ./bin/www",
     "test": "node_modules/.bin/mocha ./spec/*.spec.js",
-    "build": "webpack -w"
+    "build": "webpack"
   },
   "dependencies": {
     "@babel/polyfill": "^7.6.0",
