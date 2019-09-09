@@ -1,10 +1,10 @@
 import "./render";
-import util from "./util";
 import reqApi from "./reqApi";
+import eventHandler from "./eventHandler";
 
 const init = () => {
-    util.injectFocusEvent();
-    util.injectEventListener();
+    eventHandler.injectFocusEvent();
+    eventHandler.injectEventListener();
     reqApi.isLoggedInCookie();
 }
 

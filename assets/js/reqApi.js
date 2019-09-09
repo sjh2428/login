@@ -1,6 +1,6 @@
 import render from "./render";
 import util from "./util";
-import uuidv1 from "uuid/v1";
+import eventHandler from "./eventHandler";
 
 const api = {
     isLoggedInCookie() {
@@ -67,13 +67,7 @@ const api = {
     },
     renderHomePage(info) {
         render.renderHomePage(info);
-        document.querySelector(".wrap_home_logout_btn").addEventListener("click", this.logoutHandler);
-    },
-    logoutHandler() {
-        render.renderLoginPage();
-        document.cookie = `sessionId=${uuidv1()}`;
-        util.injectFocusEvent();
-        util.injectEventListener();
+        document.querySelector(".wrap_home_logout_btn").addEventListener("click", eventHandler.logoutHandler);
     }
 }
 

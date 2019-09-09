@@ -1,7 +1,6 @@
 import getClasses from "./getClasses";
 import eventHandler from "./eventHandler";
 import message from "./message";
-import util from "./util";
 
 const classObjs = getClasses.getAllData();
 
@@ -10,7 +9,7 @@ const view = {
         const inputValue = e.target.value.trim().slice(0, -1);
         if (inputValue.length > 0 && !inputValue.includes(",")) {
             const interestUl = classObjs["ul_interests"];
-            interestUl.appendChild(view.getInterestNode(inputValue));
+            interestUl.appendChild(this.getInterestNode(inputValue));
         }
         e.target.value = "";
     },
@@ -52,15 +51,15 @@ const view = {
         classObjs[className].style.backgroundColor = color;
     },
     alertInputCorrectly(fulfillMsgList) {
-        view.nonVisualize("modal_cancel_btn")
-        view.resizeWidth("modal_ok_btn", "100%");
-        view.visualize("wrap_modal");
-        classObjs["modal_string"].innerHTML = util.makeFulfillMsg(fulfillMsgList);
-        view.resizeHeight("modal_content", `${200 + ((fulfillMsgList.length - 1) * 25)}px`);
+        this.nonVisualize("modal_cancel_btn")
+        this.resizeWidth("modal_ok_btn", "100%");
+        this.visualize("wrap_modal");
+        classObjs["modal_string"].innerHTML = this.makeFulfillMsg(fulfillMsgList);
+        this.resizeHeight("modal_content", `${200 + ((fulfillMsgList.length - 1) * 25)}px`);
         classObjs["modal_ok_btn"].addEventListener("click", eventHandler.fulfillModalOkBtnHandler);
     },
     removeResetFeaturesInModal() {
-        view.nonVisualize("wrap_modal");
+        this.nonVisualize("wrap_modal");
         classObjs["modal_string"].innerHTML = "";
         classObjs["modal_ok_btn"].removeEventListener("click", eventHandler.resetOkBtnHandler);
         classObjs["modal_cancel_btn"].removeEventListener("click", eventHandler.resetCancelBtnHandler);
@@ -73,6 +72,13 @@ const view = {
     initializeAllInputData() {
         classObjs["sign_up_form"].reset();
         classObjs["ul_interests"].innerHTML = "";
+    },
+    makeFulfillMsg(fulfillMsgList) {
+        let fulfillMsg = "";
+        fulfillMsgList.forEach(msg => {
+            fulfillMsg += msg + "<br>";
+        });
+        return fulfillMsg;
     }
 }
 
