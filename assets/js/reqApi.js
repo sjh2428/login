@@ -1,6 +1,19 @@
 import util from "./util";
 
 const api = {
+    processLogin() {
+        const login_id = document.querySelector("input[name='login_id']").value;
+        const login_password = document.querySelector("input[name='login_password']").value;
+        fetch("/login", {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            method: "POST",
+            body: `login_id=${login_id}&login_password=${login_password}`
+        }).then(res => res.json().then(res => {
+            console.log(res.result);
+        }));
+    },
     processSignUp() {
         const id = document.querySelector("input[name='id']").value;
         const pass = document.querySelector("input[name='pass']").value;
@@ -22,9 +35,9 @@ const api = {
             body: `id=${id}&pwd=${pass}&name=${name}&birthYear=${birthday_year}
                     &birthMonth=${birthday_month}&birthDay=${birthday_day}&gender=${gender}
                     &email=${email}&tel=${tel}&interests=${interests}`
-        }).then(_ => {
-            location.reload();
-        });
+        }).then(res => res.json().then(res => {
+            console.log(res.result);
+        }));
     },
     checkIdDuplicate(id) {
         return fetch(`/duplicate?id=${id}`, {

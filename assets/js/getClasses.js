@@ -12,7 +12,6 @@ const getClasses = {
         this.classNamesInLogin.forEach(className => {
             classObjs[className] = document.querySelector(`.${className}`);
             if (className.includes("msg")) {
-                console.log(classObjs[className]);
                 classObjs[className].classList.add("err_msg");
             }
         });

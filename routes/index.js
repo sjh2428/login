@@ -43,6 +43,7 @@ router.post('/login', (req, res) => {
     if (checkPass) {
         res.cookie("sessionId", session.makeSession(findId[KEY]));
     }
+    res.json({result: findId[RESULT]});
     res.end();
 });
 

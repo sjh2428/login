@@ -129,15 +129,7 @@ const eventHandler = {
     },
     loginFormLoginHandler(e) {
         e.preventDefault();
-        const login_id = document.querySelector("input[name='login_id']").value;
-        const login_password = document.querySelector("input[name='login_password']").value;
-        fetch("/login", {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            method: "POST",
-            body: `login_id=${login_id}&login_password=${login_password}`
-        }).then(_ => location.reload());
+        reqApi.processLogin();
     },
     loginFormSignUpHandler() {
         view.visualize("wrap_sign_up_modal");
