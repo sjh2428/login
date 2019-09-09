@@ -1,5 +1,5 @@
 const getClasses = {
-    classNames: ["wrap_sign_up_modal", "sign_up_form", "id", "msg_id", "pass", "msg_pass", "pass_check", "msg_pass_check", 
+    classNamesInLogin: ["wrap_sign_up_modal", "sign_up_form", "id", "msg_id", "pass", "msg_pass", "pass_check", "msg_pass_check", 
         "name", "msg_name", "birthday_year", "birthday_month", "birthday_day", "msg_birthday",
         "gender", "msg_gender", "email", "msg_email", "tel", "msg_tel", "interest", "ul_interests", "input_interest",
         "msg_interest", "interest_del_btn", "reset_btn", "sign_up_btn", "sign_up_modal_exit_btn", "terms_window_guide_detail",
@@ -9,14 +9,15 @@ const getClasses = {
     ],
     getAllData() {
         const classObjs = {};
-        this.classNames.forEach(className => {
+        this.classNamesInLogin.forEach(className => {
             classObjs[className] = document.querySelector(`.${className}`);
             if (className.includes("msg")) {
+                console.log(classObjs[className]);
                 classObjs[className].classList.add("err_msg");
             }
         });
         return classObjs;
-    }  
+    }
 }
 
 const classObjs = getClasses.getAllData();

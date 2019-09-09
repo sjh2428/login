@@ -19,7 +19,8 @@ router.get('/', (req, res) => {
     if (!haveCookie(cookieId)) {
         res.cookie("sessionId", uuidv1());
     }
-    res.render('index', { title: 'Login', login: false });
+    // res.render('index', { title: 'Login', login: false });
+    res.render('index');
 });
 
 router.get('/logout', (req, res) => {
