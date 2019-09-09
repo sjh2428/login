@@ -23,6 +23,20 @@ router.get('/', (req, res) => {
     res.render('index');
 });
 
+router.get('/isAliveSession', (req, res) => {
+    const [RESULT, KEY] = [0, 1];
+    const cookie = req.cookies.sessionId;
+    const sessionId = session.isSessionKey(cookie);
+    if (sessionId[RESULT]) {
+        return res.json({
+            login: true,
+            userData: homeController.getUserData(sessionId[KEY])
+        });
+    }
+    res.json({login: false, userData: undefined});
+    res.end();
+});
+
 router.get('/logout', (req, res) => {
     res.cookie("sessionId", uuidv1());
     res.redirect('/');
@@ -41,9 +55,11 @@ router.post('/login', (req, res) => {
     const checkPass = findId[RESULT] ? homeController.isEqualPassword(findId[KEY], password) : false;
     // id가 존재하고 비밀번호가 일치한다면
     if (checkPass) {
-        res.cookie("sessionId", session.makeSession(findId[KEY]));
+        const sessionId = session.makeSession(findId[KEY]);
+        res.cookie("sessionId", sessionId);
+        return res.json({login: checkPass, userData: homeController.getUserData(findId[KEY])});
     }
-    res.json({result: findId[RESULT]});
+    res.json({login: checkPass, userData: undefined});
     res.end();
 });
 
@@ -52,6 +68,7 @@ router.post('/sign-up', (req, res) => {
     homeController.pushNewUser(req.body);
     const findId = homeController.isThereId(req.body.id.trim());
     res.cookie("sessionId", session.makeSession(findId[KEY]));
+    res.json({userData: homeController.getUserData(findId[KEY])});
     res.end();
 });
 
