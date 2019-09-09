@@ -1,19 +1,8 @@
 import condition from "./condition";
+import reqApi from "./reqApi";
 import util from "./util";
 
 const check = {
-    checkIdDuplicate(id) {
-        return fetch(`/duplicate?id=${id}`, {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            method: "GET"
-        })
-        .then(res => res.json())
-        .then(json => {
-            return json.duplicated;
-        });
-    },
     async checkId(idValue, msgClass) {
         let regex;
         let msgString = "";
@@ -26,7 +15,7 @@ const check = {
             msgString = "영문 소문자, 숫자와 특수기호(_)(-) 만 사용 가능합니다.";
             return condition.failedToCondition(msgClass, msgString);
         }
-        if (await check.checkIdDuplicate(idValue)) {
+        if (await reqApi.checkIdDuplicate(idValue)) {
             msgString = "중복된 아이디입니다.";
             return condition.failedToCondition(msgClass, msgString);
         }
