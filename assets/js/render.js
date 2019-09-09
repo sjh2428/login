@@ -172,6 +172,4 @@ const render = {
     }
 }
 
-render.renderLoginPage();
-
 export default render
