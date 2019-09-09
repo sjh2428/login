@@ -1,5 +1,6 @@
 import render from "./render";
 import util from "./util";
+import uuidv1 from "uuid/v1";
 
 const api = {
     isLoggedInCookie() {
@@ -70,7 +71,7 @@ const api = {
     },
     logoutHandler() {
         render.renderLoginPage();
-        document.cookie = "sessionId=oiq22oei2jeo938rej23orj928hr2o3ih";
+        document.cookie = `sessionId=${uuidv1()}`;
         util.injectFocusEvent();
         util.injectEventListener();
     }
