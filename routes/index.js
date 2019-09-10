@@ -36,11 +36,6 @@ router.get('/isAliveSession', (req, res) => {
     res.end();
 });
 
-router.get('/logout', (req, res) => {
-    res.cookie("sessionId", uuidv1());
-    res.redirect('/');
-});
-
 router.get('/duplicate', (req, res) => {
     const RESULT = 0;
     const isThereId = homeController.isThereId(req.query.id);
